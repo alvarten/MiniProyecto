@@ -11,6 +11,6 @@ public class SceneChanger : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
-        Debug.Log("Juego Cerrado"); // Esto solo se ve en el editor, no en un juego compilado.
+        Debug.Log("Juego Cerrado"); // Para checkear en el editor
     }
 }

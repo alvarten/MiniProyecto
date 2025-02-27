@@ -3,12 +3,12 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public GameObject pauseMenuPanel;  // Panel del Menú de Pausa
-    private bool isPaused = false;     // Estado del juego
+    public GameObject pauseMenuPanel;  // Panel del menu de pausa
+    private bool isPaused = false;     // Estado de la pausa del juego
 
     void Update()
     {
-        // Si presionamos ESC, se activa o desactiva el menú de pausa
+        // Si presionamos ESC, o P se activa o desactiva el menú de pausa
         if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P))
         {
             if (isPaused)
@@ -34,7 +34,7 @@ public class PauseMenu : MonoBehaviour
 
     public void GoToMainMenu()
     {
-        Time.timeScale = 1f;             // Asegurarse de que el tiempo vuelve a la normalidad
+        Time.timeScale = 1f;             // El tiempo vuelve a la normalidad
         SceneManager.LoadScene("Menu");  // Cargar la escena del menú principal
     }
 }
