@@ -21,7 +21,8 @@ public class DispararBala : MonoBehaviour
         }
 
         // Detectar si el jugador presiona el botón de disparo (Mouse Izquierdo o Ctrl)
-        if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
+        //if (Input.GetButtonDown("Fire1") || Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Fire1"))
         {
             Shoot();
         }
