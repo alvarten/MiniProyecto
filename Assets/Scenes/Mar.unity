@@ -287,6 +287,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7715819888895891196, guid: eec3350fcfc55534694f392b03a0659c, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9017378707215974017, guid: eec3350fcfc55534694f392b03a0659c, type: 3}
       propertyPath: m_Name
       value: EnemigoV1.0
