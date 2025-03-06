@@ -5,7 +5,7 @@ public class Melee : MonoBehaviour
     public float attackRange = 1.5f; // Rango de ataque
     public float attackCooldown = 1.5f; // Tiempo entre ataques
     public GameObject attackAreaPrefab; // Prefab del área de ataque
-    public float attackDuration = 0.5f; // Tiempo que el área de ataque será visible
+    public float attackDuration = 0.2f; // Tiempo que el área de ataque será visible
     private float lastAttackTime;
     private Transform player;
     void Start()

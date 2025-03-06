@@ -30,7 +30,7 @@ public class Inventory : MonoBehaviour
         UpdateCoinsText();
         UpdateChestText();
         UpdateHarponText();
-
+        RemoveItem("ammo",10);
     }
 
     void Update()
@@ -51,52 +51,51 @@ public class Inventory : MonoBehaviour
         Time.timeScale = isInventoryOpen ? 0f : 1f;
     }
 
+    // Métodos para actualizar cada texto
+    public void UpdateAmmoText() => ammoText.text = "" + ammo;
+    public void UpdateCoinsText() => coinsText.text = "" + coins;
+    public void UpdateChestText() => chestText.text = "" + chest;
+    public void UpdateHarponText() => harponText.text = ""+ harpon;
 
-
-    // Método para actualizar el texto de la munición
-    public void UpdateAmmoText()
+    // Método para actualizar todos los textos
+    public void UpdateAllTexts()
     {
-        ammoText.text =  ammo.ToString();
+        UpdateAmmoText();
+        UpdateCoinsText();
+        UpdateChestText();
+        UpdateHarponText();
     }
 
-    // Método para actualizar el texto de las monedas
-    public void UpdateCoinsText()
-    {
-        coinsText.text =  coins.ToString();
-    }
+    // Métodos para añadir objetos
+    public void AddAmmo(int amount) { ammo += amount; UpdateAmmoText(); }
+    public void AddCoins(int amount) { coins += amount; UpdateCoinsText(); }
+    public void AddChest(int amount) { chest += amount; UpdateChestText(); }
+    public void AddHarpon(int amount) { harpon += amount; UpdateHarponText(); }
 
-    // Método para actualizar el texto de los cofres
-    public void UpdateChestText()
+    // Método para reducir cualquier tipo de objeto
+    public void RemoveItem(string itemType, int amount)
     {
-        chestText.text = ammo.ToString();
-    }
-
-    // Método para actualizar el texto de los harpones
-    public void UpdateHarponText()
-    {
-        harponText.text = coins.ToString();
-    }
-    // Métodos para cambiar las variables
-    public void AddAmmo(int amount)
-    {
-        ammo += amount;
-        UpdateAmmoText();  // Actualizamos el texto de munición cada vez que cambia
-    }
-
-    public void AddCoins(int amount)
-    {
-        coins += amount;
-        UpdateCoinsText();  // Actualizamos el texto de monedas cada vez que cambia
-    }
-    public void AddChest(int amount)
-    {
-        chest += amount;
-        UpdateChestText();  // Actualizamos el texto de munición cada vez que cambia
-    }
-
-    public void AddHarpon(int amount)
-    {
-        harpon += amount;
-        UpdateHarponText();  // Actualizamos el texto de monedas cada vez que cambia
+        switch (itemType.ToLower())
+        {
+            case "ammo":
+                ammo = Mathf.Max(0, ammo - amount);
+                UpdateAmmoText();
+                break;
+            case "coins":
+                coins = Mathf.Max(0, coins - amount);
+                UpdateCoinsText();
+                break;
+            case "chest":
+                chest = Mathf.Max(0, chest - amount);
+                UpdateChestText();
+                break;
+            case "harpon":
+                harpon = Mathf.Max(0, harpon - amount);
+                UpdateHarponText();
+                break;
+            default:
+                Debug.LogWarning("Tipo de objeto desconocido: " + itemType);
+                break;
+        }
     }
 }
