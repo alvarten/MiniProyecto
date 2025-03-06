@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - FullscreenToggle
   - VolumeSlider
+  - InventoryPanel
   layers:
   - Default
   - TransparentFX
