@@ -5,36 +5,47 @@ public class MovJugador : MonoBehaviour
     public CharacterController controller;
     public float speed = 5f;
     public float gravity = -9.81f;
-    public float jumpHeight = 2f;
+    public Animator animator;
 
     private Vector3 velocity;
-    private bool isGrounded;
+    private bool isMoving = false;
+    private bool facingRight = true;
 
     void Update()
     {
         // Verificar si el personaje está en el suelo
-        isGrounded = controller.isGrounded;
+        bool isGrounded = controller.isGrounded;
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -2f; // Pequeño ajuste para que no se acumule gravedad
+            velocity.y = -2f; // Pequeño ajuste para evitar acumulación de gravedad
         }
 
         // Obtener entrada del teclado
-        float moveX = Input.GetAxis("Horizontal");
-        float moveZ = Input.GetAxis("Vertical");
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveZ = Input.GetAxisRaw("Vertical");
 
         // Mover el personaje en la dirección deseada
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
         controller.Move(move * speed * Time.deltaTime);
 
-        // Saltar
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }
-
         // Aplicar gravedad
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+
+        // Determinar si el jugador se está moviendo
+        isMoving = (moveX != 0 || moveZ != 0);
+        animator.SetBool("isWalking", isMoving);
+
+        // Cambiar dirección del sprite si se mueve en el eje X
+        if (moveX > 0 && !facingRight) Flip();
+        else if (moveX < 0 && facingRight) Flip();
+    }
+
+    void Flip()
+    {
+        facingRight = !facingRight;
+        Vector3 newScale = transform.localScale;
+        newScale.x *= -1;
+        transform.localScale = newScale;
     }
 }
