@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Bala : MonoBehaviour
 {
+    public GameObject impactEffectPrefab; // Prefab de explosion
+
     void Start()
     {
         Destroy(gameObject, 3f); // La bala se destruye 3 segundos tras ser disparada
@@ -21,7 +23,11 @@ public class Bala : MonoBehaviour
             {
                 enemy.TakeDamage(); // Llamar a la función de daño del enemigo
             }
-
+            //Crear la explosion
+            if (impactEffectPrefab != null)
+            {
+                Instantiate(impactEffectPrefab, transform.position, Quaternion.identity);
+            }
             Destroy(gameObject); // Destruir la bala
         }
     }

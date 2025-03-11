@@ -810,7 +810,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &484266907
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3956,6 +3956,7 @@ GameObject:
   - component: {fileID: 2091502220}
   - component: {fileID: 2091502219}
   - component: {fileID: 2091502227}
+  - component: {fileID: 2091502228}
   m_Layer: 0
   m_Name: Jugador
   m_TagString: Player
@@ -3975,7 +3976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbee47e8fe3fc304e8d6049cba030186, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3528174633184643604, guid: 81dd88dfc813f884080f1754c2dba1df, type: 3}
+  bulletPrefab: {fileID: 3907966567795201627, guid: 2102d237d9fcf454d8a3990843981754, type: 3}
   firePoint: {fileID: 1866228900}
   bulletSpeed: 10
 --- !u!114 &2091502220
@@ -3993,7 +3994,7 @@ MonoBehaviour:
   controller: {fileID: 2091502221}
   speed: 6.5
   gravity: -9.81
-  jumpHeight: 2
+  animator: {fileID: 2091502228}
 --- !u!143 &2091502221
 CharacterController:
   m_ObjectHideFlags: 0
@@ -4151,6 +4152,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 3
   damageCooldown: 1
+--- !u!95 &2091502228
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2091502218}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
