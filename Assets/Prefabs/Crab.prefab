@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8588994288202950968}
   - component: {fileID: 5534681798045583215}
-  - component: {fileID: 4523433629420959929}
   - component: {fileID: 4852044352628077339}
   - component: {fileID: 1861624901476512715}
-  - component: {fileID: 1758446790492112705}
   - component: {fileID: 4208103233019921464}
+  - component: {fileID: 1758446790492112705}
+  - component: {fileID: 2246385713245179580}
   m_Layer: 0
   m_Name: EnemigoBody
   m_TagString: Enemy
@@ -30,13 +30,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5224355926409372456}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.23975605, y: -0, z: -0, w: 0.9708332}
+  m_LocalRotation: {x: 0.16562672, y: -0, z: -0, w: 0.98618853}
   m_LocalPosition: {x: 0, y: 0.426, z: -0.499}
   m_LocalScale: {x: 1, y: 1, z: 0.02126861}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5163880032162783058}
-  m_LocalEulerAnglesHint: {x: 27.744, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 19.067, y: 0, z: 0}
 --- !u!65 &5534681798045583215
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -58,27 +58,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.9522924, y: 1, z: 32.980824}
   m_Center: {x: -0.031400204, y: 4.068289e-10, z: -0.42607006}
---- !u!135 &4523433629420959929
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5224355926409372456}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 3.74
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4852044352628077339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,10 +89,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bb805875a6b32547bbeaf01d99f4b65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 7.87
+  attackRange: 4
   attackCooldown: 1.5
   attackAreaPrefab: {fileID: 1304235697387993496, guid: fd0c600375fa7894585ba9955fdece7e, type: 3}
-  attackDuration: 0.5
+  attackDelay: 0.85
+  animator: {fileID: 2246385713245179580}
+--- !u!114 &4208103233019921464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5224355926409372456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 787eeb834c1851146a5658abc75134d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 3
+  objectToDestroy: {fileID: 9017378707215974017}
+  minCoins: 10
+  maxCoins: 50
+  minChests: 0
+  maxChests: 1
 --- !u!212 &1758446790492112705
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -169,24 +167,28 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4208103233019921464
-MonoBehaviour:
+--- !u!95 &2246385713245179580
+Animator:
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5224355926409372456}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 787eeb834c1851146a5658abc75134d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 3
-  objectToDestroy: {fileID: 9017378707215974017}
-  minCoins: 10
-  maxCoins: 50
-  minChests: 0
-  maxChests: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dc406efebde5e89408e23af9d880d510, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &9017378707215974017
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +199,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5163880032162783058}
   m_Layer: 0
-  m_Name: EnemigoV1.0
+  m_Name: Crab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

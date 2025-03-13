@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 612279328106642204}
   - component: {fileID: 6016410161345563052}
   m_Layer: 0
-  m_Name: BalaCanon
+  m_Name: BalaHarpon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,13 +28,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3907966567795201627}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.17270085, y: -0, z: -0, w: 0.9849743}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.3542728, y: 3.42, z: -16.827858}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 19.89, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1619222021656299139
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -79,9 +79,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1952119195, guid: 2e5d23386e8d7024598f5592307e0b44, type: 3}
+  m_Sprite: {fileID: -1712891201, guid: 2e5d23386e8d7024598f5592307e0b44, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 1, y: 1}

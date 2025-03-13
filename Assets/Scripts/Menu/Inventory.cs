@@ -13,11 +13,6 @@ public class Inventory : MonoBehaviour
     public TMP_Text chestText;    // Referencia al Text de los cofres
     public TMP_Text harponText;   // Referencia al Text de los arpones
 
-    private int ammo = 50;    // Variable de munición
-    private int coins = 100;  // Variable de monedas
-    private int chest = 5;    // Variable de cofres
-    private int harpon = 100;  // Variable de arpones
-
     void Start()
     {
         if (inventoryPanel != null)
@@ -25,12 +20,17 @@ public class Inventory : MonoBehaviour
             inventoryPanel.SetActive(false); // Asegurarse de que empiece oculto
         }
 
-        // Asegurarse de que los valores se actualicen en la UI al inicio
-        UpdateAmmoText();
-        UpdateCoinsText();
-        UpdateChestText();
-        UpdateHarponText();
-        RemoveItem("ammo",10);
+        // Cargar las cantidades de PlayerPrefs (si están guardadas) o usar valores predeterminados
+        int ammo = PlayerPrefs.GetInt("CannonBallAmmo", 50); // Valor predeterminado 50 si no existe
+        int harpon = PlayerPrefs.GetInt("HarpoonAmmo", 50); // Valor predeterminado 50 si no existe
+        int coins = PlayerPrefs.GetInt("Coins", 100);  // Valor predeterminado 100 si no existe
+        int chest = PlayerPrefs.GetInt("Chests", 5); // Valor predeterminado 5 si no existe
+
+        // Actualizar los textos en la UI
+        ammoText.text = ammo.ToString();
+        coinsText.text = coins.ToString();
+        chestText.text = chest.ToString();
+        harponText.text = harpon.ToString();
     }
 
     void Update()
@@ -46,16 +46,16 @@ public class Inventory : MonoBehaviour
     {
         isInventoryOpen = !isInventoryOpen;
         inventoryPanel.SetActive(isInventoryOpen);
-
-        // Opcional: Pausar el juego cuando el inventario está abierto
+        UpdateAllTexts();
+        // Pausar el juego cuando el inventario está abierto
         Time.timeScale = isInventoryOpen ? 0f : 1f;
     }
 
     // Métodos para actualizar cada texto
-    public void UpdateAmmoText() => ammoText.text = "" + ammo;
-    public void UpdateCoinsText() => coinsText.text = "" + coins;
-    public void UpdateChestText() => chestText.text = "" + chest;
-    public void UpdateHarponText() => harponText.text = ""+ harpon;
+    public void UpdateAmmoText() => ammoText.text = PlayerPrefs.GetInt("CannonBallAmmo", 50).ToString();
+    public void UpdateCoinsText() => coinsText.text = PlayerPrefs.GetInt("Coins", 100).ToString();
+    public void UpdateChestText() => chestText.text = PlayerPrefs.GetInt("Chests", 5).ToString();
+    public void UpdateHarponText() => harponText.text = PlayerPrefs.GetInt("HarpoonAmmo", 50).ToString();
 
     // Método para actualizar todos los textos
     public void UpdateAllTexts()
@@ -67,10 +67,30 @@ public class Inventory : MonoBehaviour
     }
 
     // Métodos para añadir objetos
-    public void AddAmmo(int amount) { ammo += amount; UpdateAmmoText(); }
-    public void AddCoins(int amount) { coins += amount; UpdateCoinsText(); }
-    public void AddChest(int amount) { chest += amount; UpdateChestText(); }
-    public void AddHarpon(int amount) { harpon += amount; UpdateHarponText(); }
+    public void AddAmmo(int amount)
+    {
+        int newAmmo = PlayerPrefs.GetInt("CannonBallAmmo", 50) + amount;
+        PlayerPrefs.SetInt("CannonBallAmmo", newAmmo);
+        UpdateAmmoText();
+    }
+    public void AddCoins(int amount)
+    {
+        int newCoins = PlayerPrefs.GetInt("Coins", 100) + amount;
+        PlayerPrefs.SetInt("Coins", newCoins);
+        UpdateCoinsText();
+    }
+    public void AddChest(int amount)
+    {
+        int newChest = PlayerPrefs.GetInt("Chests", 5) + amount;
+        PlayerPrefs.SetInt("Chests", newChest);
+        UpdateChestText();
+    }
+    public void AddHarpon(int amount)
+    {
+        int newHarpon = PlayerPrefs.GetInt("HarpoonAmmo", 100) + amount;
+        PlayerPrefs.SetInt("HarpoonAmmo", newHarpon);
+        UpdateHarponText();
+    }
 
     // Método para reducir cualquier tipo de objeto
     public void RemoveItem(string itemType, int amount)
@@ -78,19 +98,23 @@ public class Inventory : MonoBehaviour
         switch (itemType.ToLower())
         {
             case "ammo":
-                ammo = Mathf.Max(0, ammo - amount);
+                int ammo = Mathf.Max(0, PlayerPrefs.GetInt("CannonBallAmmo", 50) - amount);
+                PlayerPrefs.SetInt("CannonBallAmmo", ammo);
                 UpdateAmmoText();
                 break;
             case "coins":
-                coins = Mathf.Max(0, coins - amount);
+                int coins = Mathf.Max(0, PlayerPrefs.GetInt("Coins", 100) - amount);
+                PlayerPrefs.SetInt("Coins", coins);
                 UpdateCoinsText();
                 break;
             case "chest":
-                chest = Mathf.Max(0, chest - amount);
+                int chest = Mathf.Max(0, PlayerPrefs.GetInt("Chests", 5) - amount);
+                PlayerPrefs.SetInt("Chests", chest);
                 UpdateChestText();
                 break;
             case "harpon":
-                harpon = Mathf.Max(0, harpon - amount);
+                int harpon = Mathf.Max(0, PlayerPrefs.GetInt("HarpoonAmmo", 100) - amount);
+                PlayerPrefs.SetInt("HarpoonAmmo", harpon);
                 UpdateHarponText();
                 break;
             default:

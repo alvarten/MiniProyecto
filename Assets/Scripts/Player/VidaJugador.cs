@@ -5,7 +5,7 @@ public class VidaJugador : MonoBehaviour
     public int maxHealth = 3;
     private int currentHealth;
     private bool canTakeDamage = true; // Indica si el jugador puede recibir daño
-    public float damageCooldown = 1f; // Tiempo de espera antes de volver a recibir daño
+    public float damageCooldown = 2f; // Tiempo de espera antes de volver a recibir daño
 
     void Start()
     {
