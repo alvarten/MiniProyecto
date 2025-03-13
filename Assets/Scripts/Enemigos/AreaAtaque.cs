@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class AreaAtaque : MonoBehaviour
 {
+    public float destroyTime = 0.2f; // Tiempo antes de destruir el objeto
+
+    void Start()
+    {
+        Destroy(gameObject, destroyTime); // Destruye el objeto
+    }
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
