@@ -2,24 +2,38 @@ using UnityEngine;
 using System.Collections;
 public class VidaJugador : MonoBehaviour
 {
-    public int maxHealth = 3;
-    private int currentHealth;
+    public float vidaMaxima;
+    private float vidaActual;
     private bool canTakeDamage = true; // Indica si el jugador puede recibir daño
     public float damageCooldown = 2f; // Tiempo de espera antes de volver a recibir daño
 
+    public GameObject healthBarObject; // Referencia al objeto que tiene el script HealthBar
+    private HealthBar healthBarScript;
+
     void Start()
     {
-        currentHealth = maxHealth;
+        // Obtener la vida máxima desde PlayerPrefs, si no existe, usar 100 por defecto
+        vidaMaxima = PlayerPrefs.GetFloat("vidaMaxima", 100);
+
+        // Obtener la vida actual desde PlayerPrefs, si no existe, establecerla igual a maxHealth
+        vidaActual = PlayerPrefs.GetFloat("vidaActual", vidaMaxima);
+
+        // Obtener el objeto de barra de vida
+        healthBarScript = healthBarObject.GetComponent<HealthBar>();
     }
 
     public void TakeDamage(int amount)
     {
+        
         if (!canTakeDamage) return; // Si no puede recibir daño, salir
 
-        currentHealth -= amount;
-        Debug.Log("¡El jugador ha recibido daño! Vida restante: " + currentHealth);
+        vidaActual = PlayerPrefs.GetFloat("vidaActual");
+        // Invocamos al metodo para hacer dano
+        healthBarScript.TakeDamage(amount);
 
-        if (currentHealth <= 0)
+        Debug.Log("¡El jugador ha recibido daño! Vida restante: " + vidaActual);
+
+        if (vidaActual <= 0)
         {
             Die();
         }

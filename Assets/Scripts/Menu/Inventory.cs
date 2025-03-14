@@ -31,6 +31,10 @@ public class Inventory : MonoBehaviour
         coinsText.text = coins.ToString();
         chestText.text = chest.ToString();
         harponText.text = harpon.ToString();
+
+        //Para el testeo
+        PlayerPrefs.SetInt("CannonBallAmmo", 50);
+        PlayerPrefs.SetInt("HarpoonAmmo", 50);
     }
 
     void Update()
