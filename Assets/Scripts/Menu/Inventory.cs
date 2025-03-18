@@ -33,8 +33,8 @@ public class Inventory : MonoBehaviour
         harponText.text = harpon.ToString();
 
         //Para el testeo
-        PlayerPrefs.SetInt("CannonBallAmmo", 50);
-        PlayerPrefs.SetInt("HarpoonAmmo", 50);
+        //PlayerPrefs.SetInt("CannonBallAmmo", 50);
+        //PlayerPrefs.SetInt("HarpoonAmmo", 50);
     }
 
     void Update()
