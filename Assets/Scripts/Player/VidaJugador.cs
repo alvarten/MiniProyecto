@@ -7,6 +7,7 @@ public class VidaJugador : MonoBehaviour
     private bool canTakeDamage = true; // Indica si el jugador puede recibir daño
     public float damageCooldown = 2f; // Tiempo de espera antes de volver a recibir daño
 
+
     public GameObject healthBarObject; // Referencia al objeto que tiene el script HealthBar
     private HealthBar healthBarScript;
 

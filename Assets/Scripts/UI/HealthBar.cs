@@ -22,9 +22,9 @@ public class HealthBar : MonoBehaviour
         vidaMaxima = PlayerPrefs.GetFloat("vidaMaxima", 100f);
         vidaActual = PlayerPrefs.GetFloat("vidaActual", vidaMaxima);
 
-
-        SetMaxHealth(200);
-        TakeDamage(0);
+        // Para testear
+        //SetMaxHealth(200);
+        //TakeDamage(0);
         UpdateHealthUI();
     }
     void Update()

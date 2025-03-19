@@ -4,23 +4,28 @@ using UnityEngine;
 public class ShopManager : MonoBehaviour
 {
     // Precios ajustables desde el Inspector
-    public int priceAmmo10 = 50;   // Precio por 10 balas de cañón
-    public int priceMaxAmmoUpgrade = 150; // Precio para aumentar el máximo de munición en 20
-    public int priceHarpoonAmmo10 = 75; // Precio por 10 arpones
+    public int priceCannonAmmo10 = 50;   // Precio por 10 balas de cañón
+    public int priceMaxAmmoUpgrade = 450; // Precio para aumentar el máximo de munición en 20
+    public int priceHarpoonAmmo10 = 50; // Precio por 10 arpones
     public int priceDamageUpgrade = 200; // Precio para mejorar el daño de los cañones/arpones
+    public int priceHeal20 = 40; // Precio para curar 20 de vida
+    public int priceMaxHealth150 = 1200; // Precio para mejorar a 150 de vida máxima
+    public int priceMaxHealth200 = 2300; // Precio para mejorar a 200 de vida máxima
 
     // Texto de dinero
     public TMP_Text coinsText;
-
-
+    public TMP_Text CannonMaxText;
+    public TMP_Text HarpoonMaxText;
+    public TMP_Text VidaMaxText;
+    public TMP_Text UpgradeVidaMaxText;
     void Start()
-    {
+    {        
         // Inicializar valores en PlayerPrefs si no existen
         if (!PlayerPrefs.HasKey("Coins")) PlayerPrefs.SetInt("Coins", 200);
         if (!PlayerPrefs.HasKey("CannonBallAmmo")) PlayerPrefs.SetInt("CannonBallAmmo", 0);
         if (!PlayerPrefs.HasKey("MaxCannonBallAmmo")) PlayerPrefs.SetInt("MaxCannonBallAmmo", 50);
         if (!PlayerPrefs.HasKey("HarpoonAmmo")) PlayerPrefs.SetInt("HarpoonAmmo", 0);
-        if (!PlayerPrefs.HasKey("MaxHarpoonAmmo")) PlayerPrefs.SetInt("MaxHarpoonAmmo", 30);
+        if (!PlayerPrefs.HasKey("MaxHarpoonAmmo")) PlayerPrefs.SetInt("MaxHarpoonAmmo", 50);
         if (!PlayerPrefs.HasKey("CannonBallDamage")) PlayerPrefs.SetInt("CannonBallDamage", 10);
         if (!PlayerPrefs.HasKey("HarpoonDamage")) PlayerPrefs.SetInt("HarpoonDamage", 5);
     }
@@ -29,6 +34,10 @@ public class ShopManager : MonoBehaviour
     {
         // Se actualizan los valores de los textos
         UpdateCoinsText();
+        UpdateMaxHarpoonText();
+        UpdateMaxCannonText();
+        UpdateHealMaxPriceText();
+        UpdateUpgradeVidaMaxText();
     }
     // Mostrar un panel de UI
     public void ShowPanel(GameObject panel)
@@ -50,6 +59,131 @@ public class ShopManager : MonoBehaviour
     //Mostrar dinero actual
     public void UpdateCoinsText() => coinsText.text = PlayerPrefs.GetInt("Coins", 100).ToString();
 
+    // Actualizar la compra de arpones
+    public void UpdateMaxHarpoonText() {
+
+        int coins = PlayerPrefs.GetInt("Coins", 0);
+        int currentAmmo = PlayerPrefs.GetInt("HarpoonAmmo", 0);
+        int maxAmmo = PlayerPrefs.GetInt("MaxHarpoonAmmo", 0);
+
+        int ammoNeeded = maxAmmo - currentAmmo;
+        float pricePerAmmo = priceHarpoonAmmo10 / 10f;
+        int maxAffordable = Mathf.Min(ammoNeeded, (int)(coins / pricePerAmmo));
+
+        HarpoonMaxText.text = (Mathf.RoundToInt(maxAffordable * pricePerAmmo)).ToString() + " Coins";
+
+    }
+
+    // Actualizar la compra de balas de canon
+    public void UpdateMaxCannonText()
+    {
+
+        int coins = PlayerPrefs.GetInt("Coins", 0);
+        int currentAmmo = PlayerPrefs.GetInt("CannonBallAmmo", 0);
+        int maxAmmo = PlayerPrefs.GetInt("MaxCannonBallAmmo", 0);
+
+        int ammoNeeded = maxAmmo - currentAmmo;
+        float pricePerAmmo = priceCannonAmmo10 / 10f;
+        int maxAffordable = Mathf.Min(ammoNeeded, (int)(coins / pricePerAmmo));
+
+        CannonMaxText.text = (Mathf.RoundToInt(maxAffordable * pricePerAmmo)).ToString() + " Coins";
+    }
+
+    // Actualizar el texto de la compra de vida maxima
+    public void UpdateHealMaxPriceText()
+    {
+        int coins = PlayerPrefs.GetInt("Coins", 0);
+        float vidaActual = PlayerPrefs.GetFloat("vidaActual", 100f);
+        float vidaMaxima = PlayerPrefs.GetFloat("vidaMaxima", 100f);
+
+        float vidaFaltante = vidaMaxima - vidaActual;
+        float costoPorUnidad = priceHeal20 / 20f; // Precio de curar 1 punto de vida
+        float vidaCurable = Mathf.Min(vidaFaltante, coins / costoPorUnidad); // Vida máxima que se puede curar
+
+        int costoFinal = Mathf.FloorToInt(vidaCurable * costoPorUnidad); // Coste real en monedas
+
+        // Actualizar el texto con el precio calculado
+        VidaMaxText.text = costoFinal + " Coins";
+    }
+    // Actualizar el precio de mejorar vida maxima
+    public void UpdateUpgradeVidaMaxText() 
+    {
+        float vidaMaxima = PlayerPrefs.GetFloat("vidaMaxima", 100f);
+
+        if (vidaMaxima == 100)
+        {
+            UpgradeVidaMaxText.text = priceMaxHealth150.ToString() + " Coins";
+        }
+        else if(vidaMaxima == 150)
+        {
+            UpgradeVidaMaxText.text = priceMaxHealth200.ToString() + " Coins";
+        }
+        else
+        {
+            UpgradeVidaMaxText.text = "Sold Out";
+        }
+
+
+    } 
+
+
+    // Curar 20 de vida si se tiene suficiente dinero
+    public void Heal20()
+    {
+        int coins = PlayerPrefs.GetInt("Coins", 0);
+        float vidaActual = PlayerPrefs.GetFloat("vidaActual", 100f);
+        float vidaMaxima = PlayerPrefs.GetFloat("vidaMaxima", 100f);
+
+        if (coins >= priceHeal20 && vidaActual < vidaMaxima)
+        {
+            PlayerPrefs.SetInt("Coins", coins - priceHeal20);
+            PlayerPrefs.SetFloat("vidaActual", Mathf.Min(vidaActual + 20, vidaMaxima));
+        }
+    }
+
+    // Curar al máximo según el dinero disponible
+    public void HealMax()
+    {
+        int coins = PlayerPrefs.GetInt("Coins", 0);
+        float vidaActual = PlayerPrefs.GetFloat("vidaActual", 100f);
+        float vidaMaxima = PlayerPrefs.GetFloat("vidaMaxima", 100f);
+
+        float vidaFaltante = vidaMaxima - vidaActual;
+        float costoPorUnidad = priceHeal20 / 20f; // Precio de curar 1 punto de vida
+        float vidaCurable = Mathf.Min(vidaFaltante, coins / costoPorUnidad); // Vida máxima que se puede curar
+
+        int costoFinal = Mathf.FloorToInt(vidaCurable * costoPorUnidad); // Coste real en monedas
+
+        if (vidaCurable > 0 && costoFinal > 0)
+        {
+            PlayerPrefs.SetInt("Coins", coins - costoFinal);
+            PlayerPrefs.SetFloat("vidaActual", vidaActual + vidaCurable);
+        }
+    }
+
+    // Aumentar la vida máxima en 50 si se tiene suficiente dinero asta 200
+    public void UpgradeMaxHealth()
+    {
+        int coins = PlayerPrefs.GetInt("Coins", 0);
+        float vidaMaxima = PlayerPrefs.GetFloat("vidaMaxima", 100f);
+
+        if (vidaMaxima == 100 && coins >= priceMaxHealth150)
+        {
+            PlayerPrefs.SetInt("Coins", coins - priceMaxHealth150);
+            PlayerPrefs.SetFloat("vidaMaxima", 150);
+        }
+        else if (vidaMaxima == 150 && coins >= priceMaxHealth200)
+        {
+            PlayerPrefs.SetInt("Coins", coins - priceMaxHealth200);
+            PlayerPrefs.SetFloat("vidaMaxima", 200);
+        }
+        else
+        {
+            Debug.Log("No se puede mejorar más la vida o no tienes suficientes monedas.");
+        }
+    }
+
+
     // Comprar 10 balas de cañón
     public void BuyCannonBallAmmo10()
     {
@@ -57,9 +191,9 @@ public class ShopManager : MonoBehaviour
         int currentAmmo = PlayerPrefs.GetInt("CannonBallAmmo", 0);
         int maxAmmo = PlayerPrefs.GetInt("MaxCannonBallAmmo", 0);
 
-        if (coins >= priceAmmo10 && currentAmmo + 10 <= maxAmmo)
+        if (coins >= priceCannonAmmo10 && currentAmmo + 10 <= maxAmmo)
         {
-            PlayerPrefs.SetInt("Coins", coins - priceAmmo10);
+            PlayerPrefs.SetInt("Coins", coins - priceCannonAmmo10);
             PlayerPrefs.SetInt("CannonBallAmmo", currentAmmo + 10);
             Debug.Log("¡Compraste 10 balas de cañón!");
         }
@@ -77,11 +211,13 @@ public class ShopManager : MonoBehaviour
         int maxAmmo = PlayerPrefs.GetInt("MaxCannonBallAmmo", 0);
 
         int ammoNeeded = maxAmmo - currentAmmo;
-        int maxAffordable = Mathf.Min(ammoNeeded, coins / priceAmmo10 * 10);
+        float pricePerAmmo = priceCannonAmmo10 / 10f;
+        int maxAffordable = Mathf.Min(ammoNeeded, (int)(coins / pricePerAmmo));
 
         if (maxAffordable > 0)
         {
-            PlayerPrefs.SetInt("Coins", coins - (maxAffordable / 10 * priceAmmo10));
+            int totalCost = (int)(maxAffordable * pricePerAmmo);
+            PlayerPrefs.SetInt("Coins", coins - totalCost);
             PlayerPrefs.SetInt("CannonBallAmmo", currentAmmo + maxAffordable);
             Debug.Log("¡Has comprado munición hasta el máximo!");
         }
@@ -136,11 +272,13 @@ public class ShopManager : MonoBehaviour
         int maxAmmo = PlayerPrefs.GetInt("MaxHarpoonAmmo", 0);
 
         int ammoNeeded = maxAmmo - currentAmmo;
-        int maxAffordable = Mathf.Min(ammoNeeded, coins / priceHarpoonAmmo10 * 10);
+        float pricePerAmmo = priceHarpoonAmmo10 / 10f;
+        int maxAffordable = Mathf.Min(ammoNeeded, (int)(coins / pricePerAmmo));
 
         if (maxAffordable > 0)
         {
-            PlayerPrefs.SetInt("Coins", coins - (maxAffordable / 10 * priceHarpoonAmmo10));
+            int totalCost = (int)(maxAffordable * pricePerAmmo);
+            PlayerPrefs.SetInt("Coins", coins - totalCost);
             PlayerPrefs.SetInt("HarpoonAmmo", currentAmmo + maxAffordable);
             Debug.Log("¡Has comprado arpones hasta el máximo!");
         }

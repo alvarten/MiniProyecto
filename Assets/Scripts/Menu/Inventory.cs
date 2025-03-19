@@ -35,6 +35,8 @@ public class Inventory : MonoBehaviour
         //Para el testeo
         //PlayerPrefs.SetInt("CannonBallAmmo", 50);
         //PlayerPrefs.SetInt("HarpoonAmmo", 50);
+        //PlayerPrefs.SetInt("Coins", 5000);
+        //PlayerPrefs.SetFloat("vidaMaxima", 100f);
     }
 
     void Update()
