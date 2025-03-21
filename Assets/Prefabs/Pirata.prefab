@@ -226,6 +226,7 @@ MonoBehaviour:
   maxCoins: 50
   minChests: 0
   maxChests: 1
+  lootPrefab: {fileID: 775627343806663636, guid: a77f5bda6d0464843bfb1fb2c541f5d2, type: 3}
 --- !u!212 &9200955255605121687
 SpriteRenderer:
   m_ObjectHideFlags: 0

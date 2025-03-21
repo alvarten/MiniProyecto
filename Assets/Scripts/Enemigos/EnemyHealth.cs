@@ -9,6 +9,8 @@ public class EnemyHealth : MonoBehaviour
     public int minCoins = 10, maxCoins = 50;
     public int minChests = 0, maxChests = 1;
 
+    public GameObject lootPrefab; // Prefab del loot
+
     //Referencia al manager de inventario
     private Inventory inventory;
 
@@ -36,15 +38,17 @@ public class EnemyHealth : MonoBehaviour
     //Metodo para que el enemigo aporte loot
     void GiveLoot()
     {
-        if (inventory != null)
+        if (lootPrefab != null)
         {
-            int coinsToAdd = Random.Range(minCoins, maxCoins + 1);
-            int chestsToAdd = Random.Range(minChests, maxChests + 1);
+            Quaternion lootRotation = Quaternion.Euler(30f, 0, 0);
+            GameObject loot = Instantiate(lootPrefab, transform.position, lootRotation);
+            LootPickup lootPickup = loot.GetComponent<LootPickup>();
 
-            inventory.AddCoins(coinsToAdd);
-            Debug.Log("Añadidas " + coinsToAdd+ " monedas");
-            inventory.AddChest(chestsToAdd);
-            Debug.Log("Añadidos " + chestsToAdd + " cofres");
+            if (lootPickup != null)
+            {
+                lootPickup.coins = Random.Range(minCoins, maxCoins + 1);
+                lootPickup.chests = Random.Range(minChests, maxChests + 1);
+            }
         }
     }
 }

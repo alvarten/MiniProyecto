@@ -11,13 +11,23 @@ public class ShopManager : MonoBehaviour
     public int priceHeal20 = 40; // Precio para curar 20 de vida
     public int priceMaxHealth150 = 1200; // Precio para mejorar a 150 de vida máxima
     public int priceMaxHealth200 = 2300; // Precio para mejorar a 200 de vida máxima
+    public int priceSpeed = 250; // Precio para mejorar la velocidad
+
 
     // Texto de dinero
-    public TMP_Text coinsText;
+    public TMP_Text coinsText1;
+    public TMP_Text coinsText2;
+    public TMP_Text coinsText3;
+    public TMP_Text coinsText4;
+    public TMP_Text chestText;
+    public TMP_Text relicText;
     public TMP_Text CannonMaxText;
     public TMP_Text HarpoonMaxText;
     public TMP_Text VidaMaxText;
     public TMP_Text UpgradeVidaMaxText;
+
+    public MonoBehaviour playerMovementScript; // Script de movimiento del jugador
+
     void Start()
     {        
         // Inicializar valores en PlayerPrefs si no existen
@@ -45,6 +55,11 @@ public class ShopManager : MonoBehaviour
         if (panel != null)
         {
             panel.SetActive(true);
+
+            if (playerMovementScript != null)
+            {
+                playerMovementScript.enabled = false; // Desactiva el movimiento
+            }
         }
     }
 
@@ -54,10 +69,23 @@ public class ShopManager : MonoBehaviour
         if (panel != null)
         {
             panel.SetActive(false);
+
+            if (playerMovementScript != null)
+            {
+                playerMovementScript.enabled = true; // Reactiva el movimiento
+            }
         }
     }
-    //Mostrar dinero actual
-    public void UpdateCoinsText() => coinsText.text = PlayerPrefs.GetInt("Coins", 100).ToString();
+    //Actualizar textos para mostrar dinero actual (y cofres)
+    public void UpdateCoinsText() 
+    { 
+        coinsText1.text = PlayerPrefs.GetInt("Coins", 100).ToString();
+        coinsText2.text = PlayerPrefs.GetInt("Coins", 100).ToString();
+        coinsText3.text = PlayerPrefs.GetInt("Coins", 100).ToString();
+        coinsText4.text = PlayerPrefs.GetInt("Coins", 100).ToString();
+        chestText.text = PlayerPrefs.GetInt("Chests", 10).ToString();
+        relicText.text = PlayerPrefs.GetInt("Relics", 1).ToString();
+    }
 
     // Actualizar la compra de arpones
     public void UpdateMaxHarpoonText() {
@@ -338,6 +366,73 @@ public class ShopManager : MonoBehaviour
         else
         {
             Debug.Log("No tienes suficiente dinero.");
+        }
+    }
+
+    // Mejorar la velocidad del barco
+    public void Speed20()
+    {
+        int coins = PlayerPrefs.GetInt("Coins", 0);
+        float velocidad = PlayerPrefs.GetFloat("Speed", 5f);
+
+        if (coins >= priceSpeed)
+        {
+            PlayerPrefs.SetInt("Coins", coins - priceSpeed);
+            PlayerPrefs.SetFloat("Speed", (Mathf.Round((velocidad + 0.2f) * 10f) / 10f));
+            Debug.Log("Tu velocidad actual es " + PlayerPrefs.GetFloat("Speed",0));
+        }
+    }
+
+    //NPC de cofres
+    // Función para abrir un solo cofre
+    public void OpenOneChest()
+    {
+        int chests = PlayerPrefs.GetInt("Chests", 0); // Obtener cantidad de cofres
+        int coins = PlayerPrefs.GetInt("Coins", 0);  // Obtener cantidad de monedas
+        int relic = PlayerPrefs.GetInt("Relics", 0);  // Obtener cantidad de reliquias
+
+        if (chests > 0) // Si hay cofres disponibles
+        {
+            // Restar uno de los cofres
+            PlayerPrefs.SetInt("Chests", chests - 1);
+            Debug.Log("Cofre abierto. Cofres restantes: " + (chests - 1));
+
+            // Generar un valor aleatorio entre 0 y 100
+            int randomChance = Random.Range(0, 100);
+
+            // 90% de probabilidad de obtener monedas entre 120 y 200
+            if (randomChance < 90)
+            {
+                int coinsToGive = Random.Range(120, 201);
+                PlayerPrefs.SetInt("Coins", coins + coinsToGive);
+                Debug.Log("Has obtenido " + coinsToGive + " monedas.");
+            }
+            // 10% de probabilidad de obtener una reliquia
+            else
+            {
+                PlayerPrefs.SetInt("Relics", relic + 1);
+                Debug.Log("Has obtenido una reliquia.");
+            }
+        }
+        else
+        {
+            Debug.Log("No tienes cofres disponibles.");
+        }
+    }
+
+    // Función para abrir todos los cofres disponibles
+    public void OpenAllChests()
+    {
+        int chests = PlayerPrefs.GetInt("Chests", 0); // Obtener cantidad de cofres
+
+        if (chests > 0) // Mientras haya cofres
+        {
+            OpenOneChest(); // Abre un solo cofre
+            OpenAllChests(); // Llama a la función recursiva para abrir el siguiente cofre
+        }
+        else
+        {
+            Debug.Log("Todos los cofres han sido abiertos.");
         }
     }
 }
