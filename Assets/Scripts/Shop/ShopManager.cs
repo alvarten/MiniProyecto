@@ -342,7 +342,7 @@ public class ShopManager : MonoBehaviour
         if (coins >= priceDamageUpgrade)
         {
             PlayerPrefs.SetInt("Coins", coins - priceDamageUpgrade);
-            PlayerPrefs.SetInt("CannonBallDamage", cannonBallDamage + 5); // Aumenta en 5 puntos
+            PlayerPrefs.SetInt("CannonBallDamage", cannonBallDamage + 1); // Aumenta en 1 punto
             Debug.Log("¡Has mejorado el daño de los cañones!");
         }
         else
@@ -360,7 +360,7 @@ public class ShopManager : MonoBehaviour
         if (coins >= priceDamageUpgrade)
         {
             PlayerPrefs.SetInt("Coins", coins - priceDamageUpgrade);
-            PlayerPrefs.SetInt("HarpoonDamage", harpoonDamage + 3); // Aumenta en 3 puntos
+            PlayerPrefs.SetInt("HarpoonDamage", harpoonDamage + 1); // Aumenta en 1 punto
             Debug.Log("¡Has mejorado el daño de los arpones!");
         }
         else

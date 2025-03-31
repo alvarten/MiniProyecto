@@ -14,7 +14,7 @@ public class DispararBala : MonoBehaviour
     private float nextFireTime = 0f;    // Tiempo para el siguiente disparo
 
 
-    private bool isCannonBall = true; // Controla el tipo de bala
+    //private bool isCannonBall = true; // Controla el tipo de bala
     private Vector3 lastMoveDirection = Vector3.right; // Última dirección de movimiento
 
     void Start()
@@ -37,9 +37,23 @@ public class DispararBala : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            isCannonBall = !isCannonBall; // Cambia el tipo de bala
-            Debug.Log("Tipo de bala cambiado a: " + (isCannonBall ? "Cañón" : "Arpón"));
+            bool currentWeapon = PlayerPrefs.GetInt("isCannonBall", 1) == 1; // Obtener el estado actual
+            bool newWeapon = !currentWeapon; // Cambiar el estado
+            PlayerPrefs.SetInt("isCannonBall", newWeapon ? 1 : 0); // Guardar el nuevo estado
+            PlayerPrefs.Save(); 
+            Debug.Log("Tipo de bala cambiado a: " + (newWeapon ? "Cañón" : "Arpón"));
         }
+    }
+    //Gestionar el bool de tipo de municion
+    public bool IsCannonBall()
+    {
+        return PlayerPrefs.GetInt("isCannonBall", 0) == 1; // 1 es true, 0 es false
+    }
+
+    public void SetIsCannonBall(bool value)
+    {
+        PlayerPrefs.SetInt("isCannonBall", value ? 1 : 0);
+        PlayerPrefs.Save(); // Guarda los cambios
     }
 
     void HandleShooting()
@@ -49,24 +63,42 @@ public class DispararBala : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) // Disparar
             {
+                // Obtener el estado actual de isCannonBall desde PlayerPrefs
+                bool isCannonBall = PlayerPrefs.GetInt("isCannonBall", 1) == 1;
+
                 GameObject bulletPrefab = isCannonBall ? cannonBallPrefab : harpoonPrefab;
                 Transform firePoint = GetFirePoint();
 
                 // Verificar la munición antes de disparar
-                if (isCannonBall && PlayerPrefs.GetInt("CannonBallAmmo", 10) > 0)
+                if (isCannonBall)
                 {
-                    PlayerPrefs.SetInt("CannonBallAmmo", PlayerPrefs.GetInt("CannonBallAmmo", 10) - 1); // Restar una bala
-                    FireBullet(bulletPrefab, firePoint);
-                }
-                else if (!isCannonBall && PlayerPrefs.GetInt("HarpoonAmmo", 5) > 0)
-                {
-                    PlayerPrefs.SetInt("HarpoonAmmo", PlayerPrefs.GetInt("HarpoonAmmo", 5) - 1); // Restar un arpón
-                    FireBullet(bulletPrefab, firePoint);
+                    int cannonAmmo = PlayerPrefs.GetInt("CannonBallAmmo", 10);
+                    if (cannonAmmo > 0)
+                    {
+                        PlayerPrefs.SetInt("CannonBallAmmo", cannonAmmo - 1); // Restar una bala
+                        PlayerPrefs.Save(); // Guardar cambios
+                        FireBullet(bulletPrefab, firePoint);
+                    }
+                    else
+                    {
+                        Debug.Log("No hay munición de cañón disponible.");
+                    }
                 }
                 else
                 {
-                    Debug.Log("No hay munición disponible.");
+                    int harpoonAmmo = PlayerPrefs.GetInt("HarpoonAmmo", 5);
+                    if (harpoonAmmo > 0)
+                    {
+                        PlayerPrefs.SetInt("HarpoonAmmo", harpoonAmmo - 1); // Restar un arpón
+                        PlayerPrefs.Save(); // Guardar cambios
+                        FireBullet(bulletPrefab, firePoint);
+                    }
+                    else
+                    {
+                        Debug.Log("No hay munición de arpón disponible.");
+                    }
                 }
+
                 nextFireTime = Time.time + fireRate; // Reiniciar el cooldown
             }
         }
@@ -75,6 +107,9 @@ public class DispararBala : MonoBehaviour
     {
         if (firePoint != null)
         {
+            // Obtener el tipo de proyectil desde PlayerPrefs
+            bool isCannonBall = PlayerPrefs.GetInt("isCannonBall", 1) == 1;
+
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             rb.linearVelocity = lastMoveDirection * bulletSpeed; // Aplica velocidad en la dirección de movimiento

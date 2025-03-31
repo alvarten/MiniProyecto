@@ -107,7 +107,7 @@ public class BarcoDisparo : MonoBehaviour
                 // Configurar la direcci�n de la bala (con la velocidad adecuada)
                 bullet.GetComponent<Rigidbody>().linearVelocity = direction * velocidadBala; // Cambia la velocidad segun lo necesites
 
-                Debug.Log("El barco ha disparado al jugador en la direcci�n: " + direction);
+                //Debug.Log("El barco ha disparado al jugador en la direcci�n: " + direction);
             }
         }
     }

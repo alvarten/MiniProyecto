@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   impactEffectPrefab: {fileID: 7160331974218366672, guid: ee860ef5a05f32648858bc1be456c2fc, type: 3}
+  isCannonBall: 1
 --- !u!54 &6016410161345563052
 Rigidbody:
   m_ObjectHideFlags: 0

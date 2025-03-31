@@ -14,6 +14,8 @@ public class EnemyHealth : MonoBehaviour
     //Referencia al manager de inventario
     private Inventory inventory;
 
+    //Definir si es un monstruo o un barco
+    public bool monstruo;
 
     void Start()
     {
@@ -24,13 +26,13 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    public void TakeDamage()
+    public void TakeDamage(int damageAmount)
     {
-        health--; // Restar una vida
-
+        health -= damageAmount; // Restar la cantidad de daño recibida
+        Debug.LogWarning("Enemigo dañado con " + damageAmount);
         if (health <= 0)
         {
-            GiveLoot(); //El enemigo llama a la funcion para soltar loot
+            GiveLoot(); // El enemigo suelta loot
             Destroy(objectToDestroy); // Destruir enemigo si su vida llega a 0
         }
     }

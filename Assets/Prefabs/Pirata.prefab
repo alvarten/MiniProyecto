@@ -220,13 +220,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 787eeb834c1851146a5658abc75134d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 3
+  health: 6
   objectToDestroy: {fileID: 667193327085386554}
   minCoins: 10
   maxCoins: 50
   minChests: 0
   maxChests: 1
   lootPrefab: {fileID: 775627343806663636, guid: a77f5bda6d0464843bfb1fb2c541f5d2, type: 3}
+  monstruo: 0
 --- !u!212 &9200955255605121687
 SpriteRenderer:
   m_ObjectHideFlags: 0

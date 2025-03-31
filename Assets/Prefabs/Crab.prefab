@@ -113,6 +113,7 @@ MonoBehaviour:
   minChests: 0
   maxChests: 1
   lootPrefab: {fileID: 775627343806663636, guid: a77f5bda6d0464843bfb1fb2c541f5d2, type: 3}
+  monstruo: 1
 --- !u!212 &1758446790492112705
 SpriteRenderer:
   m_ObjectHideFlags: 0

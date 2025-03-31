@@ -38,6 +38,8 @@ public class Inventory : MonoBehaviour
         PlayerPrefs.SetInt("Coins", 5000);
         PlayerPrefs.SetInt("Relics", 50);
         PlayerPrefs.SetInt("Chests", 500);
+        PlayerPrefs.SetInt("CannonBallDamage", 2);
+        PlayerPrefs.SetInt("HarpoonDamage", 2);
         //PlayerPrefs.SetFloat("vidaMaxima", 100f);
     }
 
