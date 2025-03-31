@@ -593,7 +593,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &79776226
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8911,6 +8911,7 @@ MonoBehaviour:
   coinsText3: {fileID: 1159749628}
   coinsText4: {fileID: 341327439}
   chestText: {fileID: 1845796826}
+  relicText: {fileID: 1180035479}
   CannonMaxText: {fileID: 2040104692}
   HarpoonMaxText: {fileID: 758899314}
   VidaMaxText: {fileID: 1380635558}
