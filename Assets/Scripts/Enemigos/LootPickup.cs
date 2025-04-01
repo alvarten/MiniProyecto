@@ -17,7 +17,7 @@ public class LootPickup : MonoBehaviour
             PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt("Coins", 0) + coins);
             PlayerPrefs.SetInt("Chests", PlayerPrefs.GetInt("Chests", 0) + chests);
 
-            Debug.Log("Recogiste " + coins + " monedas y " + chests + " cofres.");
+            //Debug.Log("Recogiste " + coins + " monedas y " + chests + " cofres.");
 
             Destroy(gameObject); // Eliminar el loot después de recogerlo
         }

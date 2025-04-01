@@ -29,7 +29,7 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(int damageAmount)
     {
         health -= damageAmount; // Restar la cantidad de daño recibida
-        Debug.LogWarning("Enemigo dañado con " + damageAmount);
+        //Debug.LogWarning("Enemigo dañado con " + damageAmount);
         if (health <= 0)
         {
             GiveLoot(); // El enemigo suelta loot
