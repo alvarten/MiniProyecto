@@ -161,7 +161,7 @@ Transform:
   m_GameObject: {fileID: 1688008330136535350}
   serializedVersion: 2
   m_LocalRotation: {x: 0.16562672, y: -0, z: -0, w: 0.98618853}
-  m_LocalPosition: {x: -8.71, y: -0.518, z: 4.391}
+  m_LocalPosition: {x: -0.3899989, y: 1.1120002, z: -0.33315754}
   m_LocalScale: {x: 1, y: 1, z: 0.02127}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -205,7 +205,7 @@ MonoBehaviour:
   speed: 2
   chaseSpeed: 3.5
   waitTime: 2
-  detectionRange: 10
+  detectionRange: 18
   lostRange: 14
   moveProbability: 0.7
 --- !u!114 &3200105810294690580
@@ -295,7 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e837ed919385cd459eef2440bbdffc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionDistance: 20
+  detectionDistance: 15
   shootCooldown: 2
   velocidadBala: 15
   player: {fileID: 0}
@@ -377,7 +377,7 @@ Transform:
   m_GameObject: {fileID: 2788596846152847177}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.64, y: 0.2299999, z: 4.8041573}
+  m_LocalPosition: {x: -0.32, y: 1.86, z: 0.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

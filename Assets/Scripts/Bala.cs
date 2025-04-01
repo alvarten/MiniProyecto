@@ -8,6 +8,7 @@ public class Bala : MonoBehaviour
     void Start()
     {
         Destroy(gameObject, 3f); // La bala se destruye 3 segundos tras ser disparada
+        //Debug.Log("En posicion " + this.transform.position);
     }
 
     void Update()

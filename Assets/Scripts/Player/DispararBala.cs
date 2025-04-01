@@ -111,6 +111,7 @@ public class DispararBala : MonoBehaviour
             bool isCannonBall = PlayerPrefs.GetInt("isCannonBall", 1) == 1;
 
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+            //Debug.Log("Bala " + PlayerPrefs.GetInt("CannonBallAmmo", 50) + " disparada");
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             rb.linearVelocity = lastMoveDirection * bulletSpeed; // Aplica velocidad en la dirección de movimiento
 
@@ -133,10 +134,25 @@ public class DispararBala : MonoBehaviour
     {
         if (lastMoveDirection == Vector3.forward) return upFirePoint;
         if (lastMoveDirection == Vector3.back) return downFirePoint;
-        if (lastMoveDirection == Vector3.left) return leftFirePoint;
-        if (lastMoveDirection == Vector3.right) return rightFirePoint;
 
-        return rightFirePoint; // Valor por defecto si no hay movimiento
+        // Crear un objeto temporal para almacenar la posición ajustada (resolucion de un bug al dispara las balas)
+        GameObject tempFirePoint = new GameObject("TempFirePoint");
+
+        if (lastMoveDirection == Vector3.left)
+        {
+            tempFirePoint.transform.position = new Vector3(leftFirePoint.position.x, 0.58f, leftFirePoint.position.z);
+        }
+        else if (lastMoveDirection == Vector3.right)
+        {
+            tempFirePoint.transform.position = new Vector3(rightFirePoint.position.x, 0.58f, rightFirePoint.position.z);
+        }
+        else
+        {
+            Destroy(tempFirePoint); // Si no es left ni right, no se necesita el objeto
+            return rightFirePoint;  // Valor por defecto
+        }
+
+        return tempFirePoint.transform;
     }
     void RotateHarpoon(GameObject harpoon)
     {

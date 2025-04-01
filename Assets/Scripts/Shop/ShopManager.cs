@@ -19,8 +19,10 @@ public class ShopManager : MonoBehaviour
     public TMP_Text coinsText2;
     public TMP_Text coinsText3;
     public TMP_Text coinsText4;
+    public TMP_Text coinsText5;
     public TMP_Text chestText;
-    public TMP_Text relicText;
+    public TMP_Text relicText1;
+    public TMP_Text relicText2;
     public TMP_Text CannonMaxText;
     public TMP_Text HarpoonMaxText;
     public TMP_Text VidaMaxText;
@@ -38,7 +40,17 @@ public class ShopManager : MonoBehaviour
         if (!PlayerPrefs.HasKey("MaxHarpoonAmmo")) PlayerPrefs.SetInt("MaxHarpoonAmmo", 50);
         if (!PlayerPrefs.HasKey("CannonBallDamage")) PlayerPrefs.SetInt("CannonBallDamage", 10);
         if (!PlayerPrefs.HasKey("HarpoonDamage")) PlayerPrefs.SetInt("HarpoonDamage", 5);
+
+        //En caso de haber terminado la quest de Henry, al llegar a puerto se rellena la municion de manera automatica sin coste
+
+        if (PlayerPrefs.GetInt("progresoHenry", 0) == 4) {
+            PlayerPrefs.SetInt("HarpoonAmmo", PlayerPrefs.GetInt("MaxHarpoonAmmo", 50));
+            PlayerPrefs.SetInt("CannonBallAmmo", PlayerPrefs.GetInt("MaxCannonBallAmmo", 50));
+        }
     }
+
+
+
 
     void Update()
     {
@@ -48,6 +60,18 @@ public class ShopManager : MonoBehaviour
         UpdateMaxCannonText();
         UpdateHealMaxPriceText();
         UpdateUpgradeVidaMaxText();
+
+
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            int relics = PlayerPrefs.GetInt("Relics", 0); // Obtener cantidad actual de reliquias
+            relics++; // Sumar una reliquia
+            PlayerPrefs.SetInt("Relics", relics); // Guardar en PlayerPrefs
+            Debug.Log("Reliquia añadida. Total: " + relics);
+        }
+
+
+
     }
     // Mostrar un panel de UI
     public void ShowPanel(GameObject panel)
@@ -83,8 +107,10 @@ public class ShopManager : MonoBehaviour
         coinsText2.text = PlayerPrefs.GetInt("Coins", 100).ToString();
         coinsText3.text = PlayerPrefs.GetInt("Coins", 100).ToString();
         coinsText4.text = PlayerPrefs.GetInt("Coins", 100).ToString();
+        coinsText5.text = PlayerPrefs.GetInt("Coins", 100).ToString();
         chestText.text = PlayerPrefs.GetInt("Chests", 10).ToString();
-        relicText.text = PlayerPrefs.GetInt("Relics", 1).ToString();
+        relicText1.text = PlayerPrefs.GetInt("Relics", 1).ToString();
+        relicText2.text = PlayerPrefs.GetInt("Relics", 1).ToString();
     }
 
     // Actualizar la compra de arpones
@@ -403,15 +429,25 @@ public class ShopManager : MonoBehaviour
             // 90% de probabilidad de obtener monedas entre 120 y 200
             if (randomChance < 90)
             {
-                int coinsToGive = Random.Range(120, 201);
+                int coinsToGive = Random.Range(30, 120);
                 PlayerPrefs.SetInt("Coins", coins + coinsToGive);
                 Debug.Log("Has obtenido " + coinsToGive + " monedas.");
             }
             // 10% de probabilidad de obtener una reliquia
             else
             {
-                PlayerPrefs.SetInt("Relics", relic + 1);
-                Debug.Log("Has obtenido una reliquia.");
+                if (relic < 30)
+                {
+                    // Si hay menos de 30 reliquias, se suma una reliquia
+                    PlayerPrefs.SetInt("Relics", relic + 1);
+                    Debug.Log("Has obtenido una reliquia.");
+                }
+                else
+                {
+                    // Si ya tienes 30 reliquias, se suman 500 monedas
+                    PlayerPrefs.SetInt("Coins", coins + 500);
+                    Debug.Log("Ya tienes 30 reliquias. Has recibido 500 monedas.");
+                }
             }
         }
         else

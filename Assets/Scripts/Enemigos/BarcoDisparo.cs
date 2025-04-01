@@ -16,6 +16,19 @@ public class BarcoDisparo : MonoBehaviour
 
     private float timeSinceLastShot = 0f;   // Tiempo transcurrido desde el �ltimo disparo
 
+    void Start()
+    {
+        // Buscar automáticamente al jugador en la escena por su tag
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+        if (playerObject != null)
+        {
+            player = playerObject.transform; // Obtener el Transform del jugador
+        }
+        else
+        {
+            Debug.LogWarning("No se encontró ningún objeto con la etiqueta 'Player' en la escena.");
+        }
+    }
     void Update()
     {
         // Actualizar el tiempo entre disparos
@@ -72,7 +85,7 @@ public class BarcoDisparo : MonoBehaviour
             // Elegir el punto de disparo basado en la direcci�n del jugador
             Vector3 directionToPlayer = player.position - transform.position;
 
-            if (Mathf.Abs(directionToPlayer.x) <= shootAngleTolerance) // Jugador est� alineado en el eje X (izquierda/derecha)
+            if (Mathf.Abs(directionToPlayer.x) <= shootAngleTolerance) // Jugador esta alineado en el eje X (izquierda/derecha)
             {
                 if (directionToPlayer.x > 0)  // Jugador a la derecha
                 {
@@ -83,7 +96,7 @@ public class BarcoDisparo : MonoBehaviour
                     firePoint = firePointLeft;
                 }
             }
-            else if (Mathf.Abs(directionToPlayer.z) <= shootAngleTolerance) // Jugador est� alineado en el eje Z (arriba/abajo)
+            else if (Mathf.Abs(directionToPlayer.z) <= shootAngleTolerance) // Jugador esta alineado en el eje Z (arriba/abajo)
             {
                 if (directionToPlayer.z > 0)  // Jugador arriba
                 {
@@ -101,13 +114,13 @@ public class BarcoDisparo : MonoBehaviour
                 // Instanciar la bala en el punto de disparo
                 GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
 
-                // Calcular la direcci�n hacia el jugador
+                // Calcular la direccion hacia el jugador
                 Vector3 direction = (player.position - firePoint.position).normalized;
 
-                // Configurar la direcci�n de la bala (con la velocidad adecuada)
+                // Configurar la direccion de la bala (con la velocidad adecuada)
                 bullet.GetComponent<Rigidbody>().linearVelocity = direction * velocidadBala; // Cambia la velocidad segun lo necesites
 
-                //Debug.Log("El barco ha disparado al jugador en la direcci�n: " + direction);
+                //Debug.Log("El barco ha disparado al jugador en la direccion: " + direction);
             }
         }
     }

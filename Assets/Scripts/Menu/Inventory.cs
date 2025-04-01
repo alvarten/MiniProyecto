@@ -35,12 +35,14 @@ public class Inventory : MonoBehaviour
         //Para el testeo
         //PlayerPrefs.SetInt("CannonBallAmmo", 50);
         //PlayerPrefs.SetInt("HarpoonAmmo", 50);
-        PlayerPrefs.SetInt("Coins", 5000);
-        PlayerPrefs.SetInt("Relics", 50);
-        PlayerPrefs.SetInt("Chests", 500);
-        PlayerPrefs.SetInt("CannonBallDamage", 2);
-        PlayerPrefs.SetInt("HarpoonDamage", 2);
+        //PlayerPrefs.SetInt("Coins", 5000);
+        //PlayerPrefs.SetInt("Relics", 0);
+        //PlayerPrefs.SetInt("Chests", 500);
+        //PlayerPrefs.SetInt("CannonBallDamage", 2);
+        //PlayerPrefs.SetInt("HarpoonDamage", 2);
         //PlayerPrefs.SetFloat("vidaMaxima", 100f);
+        //PlayerPrefs.SetInt("Relics", 0);
+        //PlayerPrefs.SetInt("progresoHenry", 0);
     }
 
     void Update()

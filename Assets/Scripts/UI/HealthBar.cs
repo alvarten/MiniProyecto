@@ -112,7 +112,7 @@ public class HealthBar : MonoBehaviour
             
         }
      
-        Debug.Log("Vida Actual: " + vidaActual + " Vida Maxima: " + vidaMaxima + " Porcentaje de vida: " + healthPercentage);
+        //Debug.Log("Vida Actual: " + vidaActual + " Vida Maxima: " + vidaMaxima + " Porcentaje de vida: " + healthPercentage);
 
     }
 }
