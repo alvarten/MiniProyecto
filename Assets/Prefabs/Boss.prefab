@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4090221377871853340}
   - component: {fileID: 5817720658961852709}
   - component: {fileID: 4335469390332794046}
+  - component: {fileID: 5158655432589346634}
   - component: {fileID: 307639861118382910}
   m_Layer: 0
   m_Name: Boss
@@ -96,13 +97,32 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6301653709843791298}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 43e0998416361384d8a5d4c16895aca1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   floatAmplitude: 0.03
   floatSpeed: 10
+--- !u!114 &5158655432589346634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6301653709843791298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 507bf6080fbe0d342b023b4ab95a5d93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 307639861118382910}
+  probIdle: 0.2
+  probDisparar: 0.2
+  probGolpeDerecho: 0.2
+  probGolpeIzquierdo: 0.2
+  probGolpeFrontal: 0.2
+  cooldown: 2
 --- !u!95 &307639861118382910
 Animator:
   serializedVersion: 7
