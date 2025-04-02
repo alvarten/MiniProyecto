@@ -94,6 +94,7 @@ MonoBehaviour:
   attackAreaPrefab: {fileID: 1304235697387993496, guid: fd0c600375fa7894585ba9955fdece7e, type: 3}
   attackDelay: 0.85
   animator: {fileID: 2246385713245179580}
+  attackSound: {fileID: 8300000, guid: f1ec438affbfe584cbd08d8b730b3ad1, type: 3}
 --- !u!114 &4208103233019921464
 MonoBehaviour:
   m_ObjectHideFlags: 0

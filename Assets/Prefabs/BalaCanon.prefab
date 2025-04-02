@@ -125,6 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   impactEffectPrefab: {fileID: 7160331974218366672, guid: ee860ef5a05f32648858bc1be456c2fc, type: 3}
   isCannonBall: 1
+  fireSound: {fileID: 8300000, guid: b256c8f8a3f666e408c67bd1b2902294, type: 3}
 --- !u!54 &6016410161345563052
 Rigidbody:
   m_ObjectHideFlags: 0

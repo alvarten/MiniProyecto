@@ -1,14 +1,20 @@
+using System.Collections;
 using UnityEngine;
 
 public class Bala : MonoBehaviour
 {
     public GameObject impactEffectPrefab; // Prefab de explosion
-    public bool isCannonBall; // Determina si es una bala de canon o harpon
+    public bool isCannonBall; // Determina si es una bala de canon o harpon    
 
     void Start()
     {
         Destroy(gameObject, 3f); // La bala se destruye 3 segundos tras ser disparada
         //Debug.Log("En posicion " + this.transform.position);
+        
+        //Ajuste de bug
+        Vector3 newPosition = transform.position;
+        newPosition.y = 0.58f;
+        transform.position = newPosition;        
     }
 
     void Update()
@@ -50,4 +56,6 @@ public class Bala : MonoBehaviour
             Destroy(gameObject); // Destruir la bala
         }
     }
+
+    
 }

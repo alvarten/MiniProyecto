@@ -308,6 +308,7 @@ MonoBehaviour:
   firePointLeft: {fileID: 2690008332260226765}
   firePointRight: {fileID: 3945210097749130213}
   shootAngleTolerance: 10
+  fireSoundCanon: {fileID: 8300000, guid: b256c8f8a3f666e408c67bd1b2902294, type: 3}
 --- !u!114 &6176194030352187508
 MonoBehaviour:
   m_ObjectHideFlags: 0

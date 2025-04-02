@@ -17,6 +17,12 @@ public class DispararBala : MonoBehaviour
     //private bool isCannonBall = true; // Controla el tipo de bala
     private Vector3 lastMoveDirection = Vector3.right; // Última dirección de movimiento
 
+    // Para gestionar el audio
+    public AudioClip fireSoundCanon;  // Sonido de disparo canon
+    public AudioClip fireSoundHarpon;  // Sonido de disparo harpon
+    private AudioSource audioSource; // Fuente de sonido
+
+
     void Start()
     {
         // Inicializar las municiones de las balas en PlayerPrefs si no existen
@@ -111,6 +117,39 @@ public class DispararBala : MonoBehaviour
             bool isCannonBall = PlayerPrefs.GetInt("isCannonBall", 1) == 1;
 
             GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
+
+            // Para reproducir el sonido de disparo
+            // Agregar un AudioSource si no existe
+            audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.spatialBlend = 1f; // 3D Sound
+            audioSource.minDistance = 5f;  // Distancia mínima antes de atenuarse
+            audioSource.maxDistance = 50f; // Distancia máxima de audición
+            audioSource.volume = 0.7f * PlayerPrefs.GetFloat("Volume", 1f); // Ajusta al volumen general
+
+            if (isCannonBall)
+            {
+                // Reproducir sonido de canon
+                if (fireSoundCanon != null)
+                {
+                    audioSource.clip = fireSoundCanon;
+                    audioSource.time = 0.7f; // Iniciar en el segundo 0.7
+                    audioSource.Play();
+                    audioSource.SetScheduledEndTime(AudioSettings.dspTime + (3.5 - 0.7));
+                }
+            }else if (!isCannonBall)
+            {
+                // Reproducir sonido de harpoon
+                if (fireSoundHarpon != null)
+                {
+                    audioSource.clip = fireSoundHarpon;
+                    audioSource.time = 2.7f; // Iniciar en el segundo 0.7
+                    audioSource.Play();
+                    audioSource.SetScheduledEndTime(AudioSettings.dspTime + (3.5 - 2.7));
+                }
+            }
+            
+
+
             //Debug.Log("Bala " + PlayerPrefs.GetInt("CannonBallAmmo", 50) + " disparada");
             Rigidbody rb = bullet.GetComponent<Rigidbody>();
             rb.linearVelocity = lastMoveDirection * bulletSpeed; // Aplica velocidad en la dirección de movimiento
@@ -140,11 +179,11 @@ public class DispararBala : MonoBehaviour
 
         if (lastMoveDirection == Vector3.left)
         {
-            tempFirePoint.transform.position = new Vector3(leftFirePoint.position.x, 0.58f, leftFirePoint.position.z);
+            tempFirePoint.transform.position = new Vector3(leftFirePoint.position.x, 0.58f, transform.position.z);
         }
         else if (lastMoveDirection == Vector3.right)
         {
-            tempFirePoint.transform.position = new Vector3(rightFirePoint.position.x, 0.58f, rightFirePoint.position.z);
+            tempFirePoint.transform.position = new Vector3(rightFirePoint.position.x, 0.58f, transform.position.z);
         }
         else
         {

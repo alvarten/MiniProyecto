@@ -14,7 +14,11 @@ public class BarcoDisparo : MonoBehaviour
     public Transform firePointRight;        // Punto de disparo para derecha
     public float shootAngleTolerance = 15f; // �ngulo de tolerancia para considerar que el jugador est� en el mismo eje
 
-    private float timeSinceLastShot = 0f;   // Tiempo transcurrido desde el �ltimo disparo
+    private float timeSinceLastShot = 0f;   // Tiempo transcurrido desde el ultimo disparo
+
+    // Para gestionar el audio
+    public AudioClip fireSoundCanon;  // Sonido de disparo canon
+    private AudioSource audioSource; // Fuente de sonido
 
     void Start()
     {
@@ -114,6 +118,9 @@ public class BarcoDisparo : MonoBehaviour
                 // Instanciar la bala en el punto de disparo
                 GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
 
+                // Reproducir sonido de disparo
+                ShootSound();
+
                 // Calcular la direccion hacia el jugador
                 Vector3 direction = (player.position - firePoint.position).normalized;
 
@@ -123,5 +130,19 @@ public class BarcoDisparo : MonoBehaviour
                 //Debug.Log("El barco ha disparado al jugador en la direccion: " + direction);
             }
         }
+    }
+    void ShootSound()
+    {
+        // Agregar un AudioSource si no existe
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.spatialBlend = 1f; // 3D Sound
+        audioSource.minDistance = 5f;  // Distancia mínima antes de atenuarse
+        audioSource.maxDistance = 50f; // Distancia máxima de audición
+        audioSource.volume = 0.7f * PlayerPrefs.GetFloat("Volume", 1f); // Ajusta al volumen general
+        audioSource.clip = fireSoundCanon;
+        audioSource.time = 0.7f; // Iniciar en el segundo 0.7
+        audioSource.Play();
+        audioSource.SetScheduledEndTime(AudioSettings.dspTime + (3.5 - 0.7));
+
     }
 }

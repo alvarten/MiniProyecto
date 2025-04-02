@@ -242,6 +242,7 @@ GameObject:
   - component: {fileID: 11174130}
   - component: {fileID: 11174129}
   - component: {fileID: 11174135}
+  - component: {fileID: 11174136}
   m_Layer: 0
   m_Name: Jugador
   m_TagString: Player
@@ -431,6 +432,105 @@ MonoBehaviour:
   speed: 6.5
   gravity: -9.81
   animator: {fileID: 11174131}
+  footstepsAudio: {fileID: 11174136}
+  footstepCooldown: 0.32
+--- !u!82 &11174136
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 11174128}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 16ff8456cc4d69a4fa8a3e13aeef08c1, type: 3}
+  m_Resource: {fileID: 8300000, guid: 16ff8456cc4d69a4fa8a3e13aeef08c1, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &14665490 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5782039987817564989, guid: 3bdd103a0f79e644aa09168c5826dbdc, type: 3}
@@ -3351,7 +3451,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2818381852220828534, guid: d0da6530ad8ebfc4099ac8461ff60368, type: 3}
       propertyPath: m_Size.z
-      value: 3.8421526
+      value: 4.329067
       objectReference: {fileID: 0}
     - target: {fileID: 2818381852220828534, guid: d0da6530ad8ebfc4099ac8461ff60368, type: 3}
       propertyPath: m_Center.x
@@ -3363,7 +3463,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2818381852220828534, guid: d0da6530ad8ebfc4099ac8461ff60368, type: 3}
       propertyPath: m_Center.z
-      value: 0.26700735
+      value: 0.023550034
       objectReference: {fileID: 0}
     - target: {fileID: 4599024757814479667, guid: d0da6530ad8ebfc4099ac8461ff60368, type: 3}
       propertyPath: m_IsActive
@@ -6065,7 +6165,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2818381852220828534, guid: d0da6530ad8ebfc4099ac8461ff60368, type: 3}
       propertyPath: m_Size.z
-      value: 4.7894764
+      value: 5.5626507
       objectReference: {fileID: 0}
     - target: {fileID: 2818381852220828534, guid: d0da6530ad8ebfc4099ac8461ff60368, type: 3}
       propertyPath: m_Center.x
@@ -6077,7 +6177,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2818381852220828534, guid: d0da6530ad8ebfc4099ac8461ff60368, type: 3}
       propertyPath: m_Center.z
-      value: 2.17599
+      value: 1.789403
       objectReference: {fileID: 0}
     - target: {fileID: 4599024757814479667, guid: d0da6530ad8ebfc4099ac8461ff60368, type: 3}
       propertyPath: m_IsActive
@@ -7624,19 +7724,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2818381852220828534, guid: d0da6530ad8ebfc4099ac8461ff60368, type: 3}
       propertyPath: m_Size.x
-      value: 4.211565
+      value: 4.6454053
       objectReference: {fileID: 0}
     - target: {fileID: 2818381852220828534, guid: d0da6530ad8ebfc4099ac8461ff60368, type: 3}
       propertyPath: m_Size.y
       value: 3.459992
       objectReference: {fileID: 0}
     - target: {fileID: 2818381852220828534, guid: d0da6530ad8ebfc4099ac8461ff60368, type: 3}
+      propertyPath: m_Size.z
+      value: 5.216793
+      objectReference: {fileID: 0}
+    - target: {fileID: 2818381852220828534, guid: d0da6530ad8ebfc4099ac8461ff60368, type: 3}
       propertyPath: m_Center.x
-      value: -0.55994034
+      value: -0.56744266
       objectReference: {fileID: 0}
     - target: {fileID: 2818381852220828534, guid: d0da6530ad8ebfc4099ac8461ff60368, type: 3}
       propertyPath: m_Center.y
       value: -1.8990386
+      objectReference: {fileID: 0}
+    - target: {fileID: 2818381852220828534, guid: d0da6530ad8ebfc4099ac8461ff60368, type: 3}
+      propertyPath: m_Center.z
+      value: 1.9623318
       objectReference: {fileID: 0}
     - target: {fileID: 4599024757814479667, guid: d0da6530ad8ebfc4099ac8461ff60368, type: 3}
       propertyPath: m_IsActive
@@ -13740,6 +13848,8 @@ MonoBehaviour:
   VidaMaxText: {fileID: 1380635558}
   UpgradeVidaMaxText: {fileID: 760463338}
   playerMovementScript: {fileID: 11174135}
+  shopSound: {fileID: 8300000, guid: 7e6be0e5117a5ff428920ba21014e013, type: 3}
+  buySound: {fileID: 8300000, guid: ed9addbd8ad41df448ae5118bd84465e, type: 3}
 --- !u!1 &1014859380
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class ShopManager : MonoBehaviour
 {
@@ -29,6 +30,11 @@ public class ShopManager : MonoBehaviour
     public TMP_Text UpgradeVidaMaxText;
 
     public MonoBehaviour playerMovementScript; // Script de movimiento del jugador
+
+    // Para gestionar el audio
+    public AudioClip shopSound;  // Sonido de shop
+    public AudioClip buySound;  // Sonido de buy
+    private AudioSource audioSource; // Fuente de sonido
 
     void Start()
     {        
@@ -79,6 +85,9 @@ public class ShopManager : MonoBehaviour
         if (panel != null)
         {
             panel.SetActive(true);
+
+            //Reproducir sonido de tienda
+            ShopSound();
 
             if (playerMovementScript != null)
             {
@@ -187,11 +196,12 @@ public class ShopManager : MonoBehaviour
         int coins = PlayerPrefs.GetInt("Coins", 0);
         float vidaActual = PlayerPrefs.GetFloat("vidaActual", 100f);
         float vidaMaxima = PlayerPrefs.GetFloat("vidaMaxima", 100f);
-
+        
         if (coins >= priceHeal20 && vidaActual < vidaMaxima)
         {
             PlayerPrefs.SetInt("Coins", coins - priceHeal20);
             PlayerPrefs.SetFloat("vidaActual", Mathf.Min(vidaActual + 20, vidaMaxima));
+            BuySound();
         }
     }
 
@@ -212,6 +222,7 @@ public class ShopManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("Coins", coins - costoFinal);
             PlayerPrefs.SetFloat("vidaActual", vidaActual + vidaCurable);
+            BuySound();
         }
     }
 
@@ -225,11 +236,13 @@ public class ShopManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("Coins", coins - priceMaxHealth150);
             PlayerPrefs.SetFloat("vidaMaxima", 150);
+            BuySound();
         }
         else if (vidaMaxima == 150 && coins >= priceMaxHealth200)
         {
             PlayerPrefs.SetInt("Coins", coins - priceMaxHealth200);
             PlayerPrefs.SetFloat("vidaMaxima", 200);
+            BuySound();
         }
         else
         {
@@ -250,6 +263,7 @@ public class ShopManager : MonoBehaviour
             PlayerPrefs.SetInt("Coins", coins - priceCannonAmmo10);
             PlayerPrefs.SetInt("CannonBallAmmo", currentAmmo + 10);
             Debug.Log("¡Compraste 10 balas de cañón!");
+            BuySound();
         }
         else
         {
@@ -274,6 +288,7 @@ public class ShopManager : MonoBehaviour
             PlayerPrefs.SetInt("Coins", coins - totalCost);
             PlayerPrefs.SetInt("CannonBallAmmo", currentAmmo + maxAffordable);
             Debug.Log("¡Has comprado munición hasta el máximo!");
+            BuySound();
         }
         else
         {
@@ -292,6 +307,7 @@ public class ShopManager : MonoBehaviour
             PlayerPrefs.SetInt("Coins", coins - priceMaxAmmoUpgrade);
             PlayerPrefs.SetInt("MaxCannonBallAmmo", maxAmmo + 20);
             Debug.Log("¡Has aumentado el límite de munición en 20!");
+            BuySound();
         }
         else
         {
@@ -311,6 +327,7 @@ public class ShopManager : MonoBehaviour
             PlayerPrefs.SetInt("Coins", coins - priceHarpoonAmmo10);
             PlayerPrefs.SetInt("HarpoonAmmo", currentAmmo + 10);
             Debug.Log("¡Compraste 10 arpones!");
+            BuySound();
         }
         else
         {
@@ -335,6 +352,7 @@ public class ShopManager : MonoBehaviour
             PlayerPrefs.SetInt("Coins", coins - totalCost);
             PlayerPrefs.SetInt("HarpoonAmmo", currentAmmo + maxAffordable);
             Debug.Log("¡Has comprado arpones hasta el máximo!");
+            BuySound();
         }
         else
         {
@@ -353,6 +371,7 @@ public class ShopManager : MonoBehaviour
             PlayerPrefs.SetInt("Coins", coins - priceMaxAmmoUpgrade);
             PlayerPrefs.SetInt("MaxHarpoonAmmo", maxAmmo + 20);
             Debug.Log("¡Has aumentado el límite de arpones en 20!");
+            BuySound();
         }
         else
         {
@@ -370,6 +389,7 @@ public class ShopManager : MonoBehaviour
             PlayerPrefs.SetInt("Coins", coins - priceDamageUpgrade);
             PlayerPrefs.SetInt("CannonBallDamage", cannonBallDamage + 1); // Aumenta en 1 punto
             Debug.Log("¡Has mejorado el daño de los cañones!");
+            BuySound();
         }
         else
         {
@@ -388,6 +408,7 @@ public class ShopManager : MonoBehaviour
             PlayerPrefs.SetInt("Coins", coins - priceDamageUpgrade);
             PlayerPrefs.SetInt("HarpoonDamage", harpoonDamage + 1); // Aumenta en 1 punto
             Debug.Log("¡Has mejorado el daño de los arpones!");
+            BuySound();
         }
         else
         {
@@ -406,6 +427,7 @@ public class ShopManager : MonoBehaviour
             PlayerPrefs.SetInt("Coins", coins - priceSpeed);
             PlayerPrefs.SetFloat("Speed", (Mathf.Round((velocidad + 0.2f) * 10f) / 10f));
             Debug.Log("Tu velocidad actual es " + PlayerPrefs.GetFloat("Speed",0));
+            BuySound();
         }
     }
 
@@ -470,5 +492,32 @@ public class ShopManager : MonoBehaviour
         {
             Debug.Log("Todos los cofres han sido abiertos.");
         }
+    }
+
+    void ShopSound()
+    {
+        // Agregar un AudioSource si no existe
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.spatialBlend = 1f; // 3D Sound
+        audioSource.minDistance = 5f;  // Distancia mínima antes de atenuarse
+        audioSource.maxDistance = 50f; // Distancia máxima de audición
+        audioSource.volume = PlayerPrefs.GetFloat("Volume", 1f); // Ajusta al volumen general
+        audioSource.clip = shopSound;
+        audioSource.time = 0f; // Iniciar en el segundo 0.7
+        audioSource.Play();
+        audioSource.SetScheduledEndTime(AudioSettings.dspTime + (1.3));
+    }
+    void BuySound()
+    {
+        // Agregar un AudioSource si no existe
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.spatialBlend = 1f; // 3D Sound
+        audioSource.minDistance = 5f;  // Distancia mínima antes de atenuarse
+        audioSource.maxDistance = 50f; // Distancia máxima de audición
+        audioSource.volume = PlayerPrefs.GetFloat("Volume", 1f); // Ajusta al volumen general
+        audioSource.clip = buySound;
+        audioSource.time = 0f; // Iniciar en el segundo 0.7
+        audioSource.Play();
+        audioSource.SetScheduledEndTime(AudioSettings.dspTime + (1.8));
     }
 }

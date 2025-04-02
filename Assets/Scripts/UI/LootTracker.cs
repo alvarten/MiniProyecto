@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
+using UnityEngine.Audio;
 
 public class LootTracker : MonoBehaviour
 {
@@ -17,6 +18,10 @@ public class LootTracker : MonoBehaviour
     private int previousChests; //Lo mismo pero para el caso de los cofres
     private int accumulatedChests;
     private Coroutine chestCoroutine;
+
+    // Para gestionar el audio
+    public AudioClip lootSound;  // Sonido de loot
+    private AudioSource audioSource; // Fuente de sonido
 
     void Start()
     {
@@ -48,6 +53,7 @@ public class LootTracker : MonoBehaviour
 
     void ShowCoins(int gainedCoins)
     {
+        LootSound(); // Reproducir sonido de loot
         accumulatedCoins += gainedCoins;
         coinText.text =  accumulatedCoins.ToString();
 
@@ -85,6 +91,21 @@ public class LootTracker : MonoBehaviour
             StopCoroutine(chestCoroutine);
         }
         chestCoroutine = StartCoroutine(HidePanelAfterDelay(chestPanel, () => accumulatedChests = 0));
+    }
+
+    void LootSound()
+    {
+        // Agregar un AudioSource si no existe
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.spatialBlend = 1f; // 3D Sound
+        audioSource.minDistance = 5f;  // Distancia mínima antes de atenuarse
+        audioSource.maxDistance = 50f; // Distancia máxima de audición
+        audioSource.volume = PlayerPrefs.GetFloat("Volume", 1f); // Ajusta al volumen general
+        audioSource.clip = lootSound;
+        audioSource.time = 0f; // Iniciar en el segundo 0.7
+        audioSource.Play();
+        audioSource.SetScheduledEndTime(AudioSettings.dspTime + (0.22));
+
     }
 
     IEnumerator HidePanelAfterDelay(GameObject panel, System.Action resetAction)
