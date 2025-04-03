@@ -19,6 +19,19 @@ public class MovBarcoJugador : MonoBehaviour
     }
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.T)) // Pulsa "T" para activar/desactivar cámara lenta
+        {
+            if (Time.timeScale == 1f)
+            {
+                Time.timeScale = 0.2f; // Reduce la velocidad al 20%
+                Time.fixedDeltaTime = 0.02f * Time.timeScale; // Ajusta la física
+            }
+            else
+            {
+                Time.timeScale = 1f; // Restaura la velocidad normal
+                Time.fixedDeltaTime = 0.02f; // Restaura la física
+            }
+        }
         // Verificar si el personaje está en el suelo
         bool isGrounded = controller.isGrounded;
         if (isGrounded && velocity.y < 0)

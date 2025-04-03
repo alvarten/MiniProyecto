@@ -16,7 +16,7 @@ public class MovJugador : MonoBehaviour
     private bool facingRight = true;
 
     void Update()
-    {
+    {     
         // Verificar si el personaje está en el suelo
         bool isGrounded = controller.isGrounded;
         if (isGrounded && velocity.y < 0)

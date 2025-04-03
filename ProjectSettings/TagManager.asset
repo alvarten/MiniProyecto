@@ -9,6 +9,7 @@ TagManager:
   - VolumeSlider
   - InventoryPanel
   - Inventory
+  - EnemyBoss
   layers:
   - Default
   - TransparentFX

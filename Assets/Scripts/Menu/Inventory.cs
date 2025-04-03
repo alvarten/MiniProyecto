@@ -15,6 +15,8 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
+        // Asegurar que el tiempo no está pausado al iniciar una escena
+        Time.timeScale = 1;
         if (inventoryPanel != null)
         {
             inventoryPanel.SetActive(false); // Asegurarse de que empiece oculto

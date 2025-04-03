@@ -10,7 +10,8 @@ public class AudioManager : MonoBehaviour
     [Range(0f, 1f)] public float menuVolume = 1f;  // Ajustable desde el Inspector
     [Range(0f, 1f)] public float puertoVolume = 0.3f; 
     [Range(0f, 1f)] public float ambianceVolume = 1f; 
-    [Range(0f, 1f)] public float marChillVolume = 1f; 
+    [Range(0f, 1f)] public float marChillVolume = 1f;
+    [Range(0f, 1f)] public float bossVolume = 0.5f;
 
     private float generalVolume;
 
@@ -22,6 +23,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip ambianceClip;
     public AudioClip marMusicChill;
     public AudioClip marMusicBattle;
+    public AudioClip bossBattle;
 
     private Coroutine currentFadeCoroutine;  // Almacena la coroutine activa
     void Awake()
@@ -72,6 +74,11 @@ public class AudioManager : MonoBehaviour
             PlayMarMusic();
             PlayAmbiance();
         }
+        else if (scene.name == "Cueva")
+        {
+            PlayCuevaMusic();
+            PlayAmbiance();
+        }
     }
 
     public void PlayMainMenuMusic()
@@ -110,6 +117,15 @@ public class AudioManager : MonoBehaviour
         {
             musicSource.clip = marMusicChill;
             musicSource.volume = marChillVolume * generalVolume;
+            musicSource.Play();
+        }
+    }
+    public void PlayCuevaMusic()
+    {
+        if (musicSource.clip != bossBattle)
+        {
+            musicSource.clip = bossBattle;
+            musicSource.volume = bossVolume * generalVolume;
             musicSource.Play();
         }
     }
