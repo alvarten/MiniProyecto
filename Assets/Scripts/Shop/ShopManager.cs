@@ -452,7 +452,7 @@ public class ShopManager : MonoBehaviour
             int randomChance = Random.Range(0, 100);
 
             // 90% de probabilidad de obtener monedas entre 120 y 200
-            if (randomChance < 90)
+            if (randomChance < 80)
             {
                 int coinsToGive = Random.Range(30, 120);
                 PlayerPrefs.SetInt("Coins", coins + coinsToGive);

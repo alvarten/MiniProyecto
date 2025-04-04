@@ -46,13 +46,13 @@ public class HenryDialogo : MonoBehaviour
         }
 
         if (relics < 5)
-            message = "Reliquias: " + relics + ". \nPor favor, sigue buscando, cuando llegues a 5 te recompensaré";
+            message = "Reliquias: " + relics + ". \nPor favor, sigue buscando, cuando llegues a 5 te recompensaré.";
         else if (relics < 10)
-            message = "Reliquias: " + relics + ". Has alcanzado 5 reliquias! \nMuchas gracias, acepta estas 1000 monedas como pago, si llegas a 10 te daré más";
+            message = "Reliquias: " + relics + ". Has alcanzado 5 reliquias! \nMuchas gracias, acepta estas 1000 monedas como pago, si llegas a 10 te daré más.";
         else if (relics < 15)
-            message = "Reliquias: " + relics + ". Has conseguido 10 reliquias! \nCada vez veo más cerca el poder tenerlas todas de nuevo, por favor acepta estas 2500 monedas";
+            message = "Reliquias: " + relics + ". Has conseguido 10 reliquias! \nCada vez veo más cerca el poder tenerlas todas de nuevo, por favor acepta estas 2500 monedas.";
         else if (relics < 30)
-            message = "Reliquias: " + relics + ". Tienes 15 reliquias!\nEstá claro que puedo confiar en ti, toma 3000 monedas. Si llegas a 30 me haré cargo de los costes de tu munición, te debo mucho";
+            message = "Reliquias: " + relics + ". Tienes 15 reliquias!\nEstá claro que puedo confiar en ti, toma 3000 monedas. Si llegas a 30 me haré cargo de los costes de tu munición, te debo mucho.";
         else
             message = "Increíble! Has conseguido las 30 reliquias. \nComo te lo prometí, a partir de ahora cada vez que llegues a puerto me encargaré personalmente de rellenar tu munición.";
 
