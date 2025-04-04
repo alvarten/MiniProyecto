@@ -22,7 +22,6 @@ public class PartidaManager : MonoBehaviour
             PlayerPrefs.SetFloat("Speed", 5f);
             PlayerPrefs.SetFloat("vidaActual", 100f);
             PlayerPrefs.SetFloat("vidaMaxima", 100f);
-            PlayerPrefs.SetFloat("vidaMaxima", 100f);
             PlayerPrefs.SetInt("inicioPartida", 0);
             PlayerPrefs.Save();
         }

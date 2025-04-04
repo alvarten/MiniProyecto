@@ -12,6 +12,8 @@ public class AudioManager : MonoBehaviour
     [Range(0f, 1f)] public float ambianceVolume = 1f; 
     [Range(0f, 1f)] public float marChillVolume = 1f;
     [Range(0f, 1f)] public float bossVolume = 0.5f;
+    [Range(0f, 1f)] public float derrotaVolume = 0.5f;
+    [Range(0f, 1f)] public float victoriaVolume = 0.5f;
 
     private float generalVolume;
 
@@ -24,8 +26,11 @@ public class AudioManager : MonoBehaviour
     public AudioClip marMusicChill;
     public AudioClip marMusicBattle;
     public AudioClip bossBattle;
+    public AudioClip derrotaMusic;
+    public AudioClip victoriaMusic;
 
     private Coroutine currentFadeCoroutine;  // Almacena la coroutine activa
+
     void Awake()
     {
         if (instance == null)
@@ -55,6 +60,9 @@ public class AudioManager : MonoBehaviour
         generalVolume = PlayerPrefs.GetFloat("Volume", 1f);
 
         PlayMainMenuMusic();
+
+        // Asegurar que al cargar una nueva escena se resetea la vida del boss
+        PlayerPrefs.SetInt("VidaBoss", 60);
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -79,6 +87,20 @@ public class AudioManager : MonoBehaviour
             PlayCuevaMusic();
             PlayAmbiance();
         }
+    }
+
+    void Update()
+    {
+        if (PlayerPrefs.GetFloat("vidaActual", 100f) <= 0)
+        {
+            PlayDerrotaMusic();
+        }
+
+        if (PlayerPrefs.GetInt("VidaBoss", 60) <= 0)
+        {
+            PlayVictoriaMusic();
+        }
+
     }
 
     public void PlayMainMenuMusic()
@@ -126,6 +148,25 @@ public class AudioManager : MonoBehaviour
         {
             musicSource.clip = bossBattle;
             musicSource.volume = bossVolume * generalVolume;
+            musicSource.Play();
+        }
+    }
+    public void PlayDerrotaMusic()
+    {
+        if (musicSource.clip != derrotaMusic)
+        {
+            musicSource.clip = derrotaMusic;
+            musicSource.volume = derrotaVolume * generalVolume;
+            musicSource.Play();
+        }
+    }
+    public void PlayVictoriaMusic()
+    {
+        if (musicSource.clip != victoriaMusic)
+        {
+            musicSource.clip = victoriaMusic;
+            musicSource.volume = victoriaVolume * generalVolume;
+            //musicSource.time = 20f;
             musicSource.Play();
         }
     }

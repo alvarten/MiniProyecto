@@ -38,8 +38,6 @@ public class ShopManager : MonoBehaviour
 
     void Start()
     {
-        // Reiniciar la vida del boss para cuando volvamos de haberle derrotado, poder seguir jugando
-        PlayerPrefs.SetInt("VidaBoss", 60);
         PlayerPrefs.Save();
         // Inicializar valores en PlayerPrefs si no existen
         if (!PlayerPrefs.HasKey("Coins")) PlayerPrefs.SetInt("Coins", 200);

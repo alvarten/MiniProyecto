@@ -49,6 +49,8 @@ MonoBehaviour:
   ambianceVolume: 1
   marChillVolume: 0.21
   bossVolume: 0.25
+  derrotaVolume: 0.5
+  victoriaVolume: 0.7
   musicSource: {fileID: 0}
   ambianceSource: {fileID: 0}
   mainMenuMusic: {fileID: 8300000, guid: 6adbf2de44f3b2349b595399e79f866a, type: 3}
@@ -57,3 +59,5 @@ MonoBehaviour:
   marMusicChill: {fileID: 8300000, guid: 096d0ac2c73076a48b53946b0ceb2d7f, type: 3}
   marMusicBattle: {fileID: 8300000, guid: 0e9bd1ff222899e4992a438fc368a1a2, type: 3}
   bossBattle: {fileID: 8300000, guid: 59725d44ba6606142920c615a9c540be, type: 3}
+  derrotaMusic: {fileID: 8300000, guid: 6c7b7de9d5b1b0846aaba1bb1d835cef, type: 3}
+  victoriaMusic: {fileID: 8300000, guid: 18a1038e261b84a4299e0a31a0367548, type: 3}
