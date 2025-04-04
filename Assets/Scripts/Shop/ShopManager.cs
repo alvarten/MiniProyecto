@@ -8,7 +8,7 @@ public class ShopManager : MonoBehaviour
     public int priceCannonAmmo10 = 50;   // Precio por 10 balas de cañón
     public int priceMaxAmmoUpgrade = 450; // Precio para aumentar el máximo de munición en 20
     public int priceHarpoonAmmo10 = 50; // Precio por 10 arpones
-    public int priceDamageUpgrade = 200; // Precio para mejorar el daño de los cañones/arpones
+    public int priceDamageUpgrade = 400; // Precio para mejorar el daño de los cañones/arpones
     public int priceHeal20 = 40; // Precio para curar 20 de vida
     public int priceMaxHealth150 = 1200; // Precio para mejorar a 150 de vida máxima
     public int priceMaxHealth200 = 2300; // Precio para mejorar a 200 de vida máxima
@@ -37,7 +37,10 @@ public class ShopManager : MonoBehaviour
     private AudioSource audioSource; // Fuente de sonido
 
     void Start()
-    {        
+    {
+        // Reiniciar la vida del boss para cuando volvamos de haberle derrotado, poder seguir jugando
+        PlayerPrefs.SetInt("VidaBoss", 60);
+        PlayerPrefs.Save();
         // Inicializar valores en PlayerPrefs si no existen
         if (!PlayerPrefs.HasKey("Coins")) PlayerPrefs.SetInt("Coins", 200);
         if (!PlayerPrefs.HasKey("CannonBallAmmo")) PlayerPrefs.SetInt("CannonBallAmmo", 0);

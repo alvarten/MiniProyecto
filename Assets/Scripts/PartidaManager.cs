@@ -5,7 +5,7 @@ public class PartidaManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if(PlayerPrefs.GetInt("inicioPartida", 0) == 0)
+        if(PlayerPrefs.GetInt("inicioPartida", 1) == 1)
         {
             PlayerPrefs.SetInt("CannonBallAmmo", 15);
             PlayerPrefs.SetInt("MaxCannonBallAmmo", 50);
@@ -18,10 +18,13 @@ public class PartidaManager : MonoBehaviour
             PlayerPrefs.SetFloat("vidaMaxima", 100f);
             PlayerPrefs.SetInt("Relics", 0);
             PlayerPrefs.SetInt("progresoHenry", 0);
+            PlayerPrefs.SetInt("VidaBoss", 60);
             PlayerPrefs.SetFloat("Speed", 5f);
             PlayerPrefs.SetFloat("vidaActual", 100f);
             PlayerPrefs.SetFloat("vidaMaxima", 100f);
-            PlayerPrefs.SetInt("inicioPartida", 1);
+            PlayerPrefs.SetFloat("vidaMaxima", 100f);
+            PlayerPrefs.SetInt("inicioPartida", 0);
+            PlayerPrefs.Save();
         }
     }
 
