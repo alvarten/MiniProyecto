@@ -2,11 +2,16 @@ using UnityEngine;
 
 public class PartidaManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Update()
     {
-        if(PlayerPrefs.GetInt("inicioPartida", 1) == 1)
+        // Hacer pruebas de reseteo de variables
+        //PlayerPrefs.SetInt("inicioPartida", 1);
+        //PlayerPrefs.Save();
+
+        // Al iniciar partida se setean las variables de PlayerPrefs
+        if (PlayerPrefs.GetInt("inicioPartida", 1) == 1)
         {
+            PlayerPrefs.SetInt("IntroduccionTexto", 0);
             PlayerPrefs.SetInt("CannonBallAmmo", 15);
             PlayerPrefs.SetInt("MaxCannonBallAmmo", 50);
             PlayerPrefs.SetInt("HarpoonAmmo", 15);
@@ -22,14 +27,9 @@ public class PartidaManager : MonoBehaviour
             PlayerPrefs.SetFloat("Speed", 5f);
             PlayerPrefs.SetFloat("vidaActual", 100f);
             PlayerPrefs.SetFloat("vidaMaxima", 100f);
+            PlayerPrefs.SetInt("PantallaControles", 1);
             PlayerPrefs.SetInt("inicioPartida", 0);
             PlayerPrefs.Save();
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    }    
 }

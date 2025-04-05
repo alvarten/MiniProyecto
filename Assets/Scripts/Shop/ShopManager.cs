@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -35,6 +36,9 @@ public class ShopManager : MonoBehaviour
     public AudioClip shopSound;  // Sonido de shop
     public AudioClip buySound;  // Sonido de buy
     private AudioSource audioSource; // Fuente de sonido
+
+    // Paneles que no reproducen sonido al mostrarse
+    public GameObject[] panelsSinSonido;
 
     void Start()
     {
@@ -87,12 +91,15 @@ public class ShopManager : MonoBehaviour
         {
             panel.SetActive(true);
 
-            //Reproducir sonido de tienda
-            ShopSound();
+            // Si el panel no está en la lista de excepciones, reproducir sonido
+            if (!panelsSinSonido.Contains(panel))
+            {
+                ShopSound();
+            }
 
             if (playerMovementScript != null)
             {
-                playerMovementScript.enabled = false; // Desactiva el movimiento
+                playerMovementScript.enabled = false;
             }
         }
     }
