@@ -5,11 +5,13 @@ public class VidaJugador : MonoBehaviour
     public float vidaMaxima;
     private float vidaActual;
     private bool canTakeDamage = true; // Indica si el jugador puede recibir daño
-    public float damageCooldown = 2f; // Tiempo de espera antes de volver a recibir daño
+    public float damageCooldown = 0.5f; // Tiempo de espera antes de volver a recibir daño
 
 
     public GameObject healthBarObject; // Referencia al objeto que tiene el script HealthBar
     private HealthBar healthBarScript;
+
+    private Animator animator; // Referencia al animator del player
 
     void Start()
     {
@@ -21,6 +23,9 @@ public class VidaJugador : MonoBehaviour
 
         // Obtener el objeto de barra de vida
         healthBarScript = healthBarObject.GetComponent<HealthBar>();
+
+        // Obtener el animator
+        animator = GetComponent<Animator>();
     }
 
     public void TakeDamage(int amount)
@@ -29,7 +34,14 @@ public class VidaJugador : MonoBehaviour
         if (!canTakeDamage) return; // Si no puede recibir daño, salir
 
         vidaActual = PlayerPrefs.GetFloat("vidaActual");
-        // Invocamos al metodo para hacer dano
+        // Activar la animacion de daño
+        if (animator != null)
+        {
+            Debug.Log("¡El jugador 1");
+            animator.SetTrigger("Hit");
+            Debug.Log("¡El jugador 2");
+        }
+        // Invocamos al metodo para hacer daño
         healthBarScript.TakeDamage(amount);
 
         Debug.Log("¡El jugador ha recibido daño! Vida restante: " + vidaActual);

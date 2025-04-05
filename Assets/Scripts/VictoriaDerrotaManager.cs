@@ -38,7 +38,7 @@ public class VictoriaDerrotaManager : MonoBehaviour
     public void CheckPlayerHealth()
     {
         playerHealth = PlayerPrefs.GetFloat("vidaActual"); // Obtener la vida actual del jugador
-        Debug.Log(playerHealth);
+        //Debug.Log(playerHealth);
         if (playerHealth <= 0)
         {
             ShowDefeatPanel();
