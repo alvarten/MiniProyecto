@@ -6,7 +6,7 @@ public class ControlesPanelManager : MonoBehaviour
 
     void Start()
     {        
-        if (PlayerPrefs.GetInt("PantallaControles", 0) == 1)
+        if (PlayerPrefs.GetInt("PantallaControles", 1) == 1)
         {
             ShowPanelAndPause(panelControles);
         }
@@ -28,6 +28,7 @@ public class ControlesPanelManager : MonoBehaviour
         if (panel != null)
         {
             panel.SetActive(false);
+            PlayerPrefs.SetInt("PantallaControles", 0);
             Time.timeScale = 1f; // Reanudar el juego
         }
     }

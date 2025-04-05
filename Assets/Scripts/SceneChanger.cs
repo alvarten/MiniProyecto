@@ -5,6 +5,15 @@ public class SceneChanger : MonoBehaviour
 {    
     public void ChangeScene(string sceneName)
     {
+        // Guardamos desde dónde venimos
+        if (PlayerSpawnManager.Instance != null)
+        {
+            PlayerSpawnManager.Instance.SetLastScene(SceneManager.GetActiveScene().name);
+        }
+
+        // Guardamos la posición del jugador antes de cambiar de escena
+        PlayerPrefs.Save();
+
         //Cambiar la escena
         SceneManager.LoadScene(sceneName);
 
