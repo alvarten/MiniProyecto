@@ -15310,7 +15310,7 @@ RectTransform:
   m_GameObject: {fileID: 1233649230}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7898268, y: 0.6989618, z: 0.73884857}
+  m_LocalScale: {x: 4.342705, y: 3.8431017, z: 4.0624113}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 385255266}
@@ -25520,6 +25520,10 @@ MonoBehaviour:
   fireRate: 1
   fireSoundCanon: {fileID: 8300000, guid: b256c8f8a3f666e408c67bd1b2902294, type: 3}
   fireSoundHarpon: {fileID: 8300000, guid: f5ae320f94dcabe4286bd34792957932, type: 3}
+  panelInventory: {fileID: 484266906}
+  panelMenu: {fileID: 697132215}
+  panelControles: {fileID: 1233646068}
+  panelDerrota: {fileID: 385255265}
 --- !u!143 &2091502221
 CharacterController:
   m_ObjectHideFlags: 0

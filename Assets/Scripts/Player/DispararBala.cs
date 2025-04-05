@@ -22,6 +22,12 @@ public class DispararBala : MonoBehaviour
     public AudioClip fireSoundHarpon;  // Sonido de disparo harpon
     private AudioSource audioSource; // Fuente de sonido
 
+    // Para gestionar los paneles y no disparar mientras esten activos
+    public GameObject panelInventory;
+    public GameObject panelMenu;
+    public GameObject panelControles;
+    public GameObject panelDerrota;
+
 
     void Start()
     {
@@ -64,6 +70,14 @@ public class DispararBala : MonoBehaviour
 
     void HandleShooting()
     {
+        // Comprobar si hay algún panel de menu activo, para no disparar al hacer click
+        if ((panelInventory != null && panelInventory.activeSelf) ||
+        (panelMenu != null && panelMenu.activeSelf) ||
+        (panelDerrota != null && panelDerrota.activeSelf) ||
+        (panelControles != null && panelControles.activeSelf))
+        {
+            return;
+        }
         // Si el tiempo de cooldown ha pasado, permitir el disparo
         if (Time.time >= nextFireTime)
         {

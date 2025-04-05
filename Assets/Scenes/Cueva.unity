@@ -7871,6 +7871,10 @@ MonoBehaviour:
   fireRate: 1
   fireSoundCanon: {fileID: 8300000, guid: b256c8f8a3f666e408c67bd1b2902294, type: 3}
   fireSoundHarpon: {fileID: 8300000, guid: f5ae320f94dcabe4286bd34792957932, type: 3}
+  panelInventory: {fileID: 484266906}
+  panelMenu: {fileID: 697132215}
+  panelControles: {fileID: 355224694}
+  panelDerrota: {fileID: 1447887090}
 --- !u!114 &1443811366
 MonoBehaviour:
   m_ObjectHideFlags: 0
