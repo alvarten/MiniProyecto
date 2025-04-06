@@ -42,6 +42,15 @@ public class ShopManager : MonoBehaviour
 
     void Start()
     {
+        // En caso de no tener dinero, se otorga municion al jugador para que pueda seguir jugando
+        if (PlayerPrefs.GetInt("Coins", 200) <= 20 && PlayerPrefs.GetInt("CannonBallAmmo", 10) <= 5 && PlayerPrefs.GetInt("HarpoonAmmo", 10) <= 5)
+        {
+            PlayerPrefs.SetInt("CannonBallAmmo", 15);
+            PlayerPrefs.SetInt("HarpoonAmmo", 15);
+        }
+
+        // Resetear la vida del boss para poder volver a derrotarlo
+        PlayerPrefs.SetInt("VidaBoss", 60);
         PlayerPrefs.Save();
         // Inicializar valores en PlayerPrefs si no existen
         if (!PlayerPrefs.HasKey("Coins")) PlayerPrefs.SetInt("Coins", 200);
